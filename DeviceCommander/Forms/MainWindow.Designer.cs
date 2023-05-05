@@ -46,13 +46,22 @@
             this.PnlNav = new System.Windows.Forms.Label();
             this.PnFill = new System.Windows.Forms.Panel();
             this.PnPage = new System.Windows.Forms.Panel();
-            this.ElipsePnl = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.DeviceNameInfo = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.PingButton = new System.Windows.Forms.Button();
+            this.DisconnectButton = new System.Windows.Forms.Button();
+            this.ElipsePnl = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.SendButton = new System.Windows.Forms.Button();
             this.TLPnl.SuspendLayout();
             this.PNLSearch.SuspendLayout();
             this.TLPnlMenu.SuspendLayout();
             this.PnFill.SuspendLayout();
             this.PnPage.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // TLPnl
@@ -278,18 +287,104 @@
             this.PnPage.Size = new System.Drawing.Size(1275, 630);
             this.PnPage.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(153)))), ((int)(((byte)(248)))));
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(198, 630);
+            this.panel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.SendButton, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.DeviceNameInfo, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 107);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.85431F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.1457F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 463);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // DeviceNameInfo
+            // 
+            this.DeviceNameInfo.BackColor = System.Drawing.Color.White;
+            this.DeviceNameInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DeviceNameInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceNameInfo.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.DeviceNameInfo.Location = new System.Drawing.Point(3, 3);
+            this.DeviceNameInfo.Name = "DeviceNameInfo";
+            this.DeviceNameInfo.ReadOnly = true;
+            this.DeviceNameInfo.Size = new System.Drawing.Size(194, 27);
+            this.DeviceNameInfo.TabIndex = 0;
+            this.DeviceNameInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.PingButton);
+            this.panel2.Controls.Add(this.DisconnectButton);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 65);
+            this.panel2.TabIndex = 0;
+            // 
+            // PingButton
+            // 
+            this.PingButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PingButton.FlatAppearance.BorderSize = 0;
+            this.PingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PingButton.Image = ((System.Drawing.Image)(resources.GetObject("PingButton.Image")));
+            this.PingButton.Location = new System.Drawing.Point(103, 0);
+            this.PingButton.Name = "PingButton";
+            this.PingButton.Size = new System.Drawing.Size(103, 65);
+            this.PingButton.TabIndex = 2;
+            this.PingButton.Text = "Ping";
+            this.PingButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.PingButton.UseVisualStyleBackColor = true;
+            // 
+            // DisconnectButton
+            // 
+            this.DisconnectButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DisconnectButton.FlatAppearance.BorderSize = 0;
+            this.DisconnectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DisconnectButton.Image = ((System.Drawing.Image)(resources.GetObject("DisconnectButton.Image")));
+            this.DisconnectButton.Location = new System.Drawing.Point(0, 0);
+            this.DisconnectButton.Name = "DisconnectButton";
+            this.DisconnectButton.Size = new System.Drawing.Size(103, 65);
+            this.DisconnectButton.TabIndex = 1;
+            this.DisconnectButton.Text = "Disconnect";
+            this.DisconnectButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.DisconnectButton.UseVisualStyleBackColor = true;
+            // 
             // ElipsePnl
             // 
             this.ElipsePnl.ElipseRadius = 15;
             this.ElipsePnl.TargetControl = this.PNLSearch;
             // 
-            // panel1
+            // SendButton
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 630);
-            this.panel1.TabIndex = 0;
+            this.SendButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SendButton.FlatAppearance.BorderSize = 0;
+            this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SendButton.Image = ((System.Drawing.Image)(resources.GetObject("SendButton.Image")));
+            this.SendButton.Location = new System.Drawing.Point(3, 397);
+            this.SendButton.Name = "SendButton";
+            this.SendButton.Size = new System.Drawing.Size(194, 63);
+            this.SendButton.TabIndex = 3;
+            this.SendButton.Text = "Send";
+            this.SendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.SendButton.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -314,6 +409,10 @@
             this.TLPnlMenu.ResumeLayout(false);
             this.PnFill.ResumeLayout(false);
             this.PnPage.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -338,5 +437,11 @@
         private Panel PnPage;
         private Bunifu.Framework.UI.BunifuElipse ElipsePnl;
         private Panel panel1;
+        private Panel panel2;
+        private Button DisconnectButton;
+        private Button PingButton;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TextBox DeviceNameInfo;
+        private Button SendButton;
     }
 }
