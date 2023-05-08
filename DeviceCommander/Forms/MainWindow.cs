@@ -1,5 +1,11 @@
+using DeviceCommander.Helper_Methods.Socket;
 using DeviceCommander.Services.ButtonServices;
+using DeviceCommander.Services.DataGridServices;
 using DeviceCommander.Services.MouseService;
+using System.Net;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
+using Timer = System.Threading.Timer;
 
 namespace DeviceCommander
 {
@@ -7,11 +13,18 @@ namespace DeviceCommander
     {
         private bool mouseDown;
         private Point lastMousePosition;
-
+        private Socket listenerSocket;
+        ConfirmConnection confirm = new ConfirmConnection();
+        ReciveIncomingSocket recive=new ReciveIncomingSocket();
+        private System.Windows.Forms.Timer timer;
         public MainWindow()
         {
             InitializeComponent();
             CommandPanel.Width = 0;
+            PreparationSocket.CreateListenerSocket(ref listenerSocket);
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 5000; // set interval to 5 seconds
+            timer.Tick += Timer_Tick2;
         }
 
         void AddForm(Form frm, Button btn)
@@ -68,12 +81,16 @@ namespace DeviceCommander
             SearchBar.BackColor = Color.FromArgb(99, 180, 255);
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
+        private async void StartButton_Click(object sender, EventArgs e)
         {
+            Task.Factory.StartNew(() => confirm.AcceptConnection(listenerSocket));
+            Task.Factory.StartNew(() => recive.ReciveData(DataGrid));
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
-        }
+            timer.Start();
 
-        private void StopButton_Click(object sender, EventArgs e)
+            StartButton.Enabled = false;
+        }
+        private async void StopButton_Click(object sender, EventArgs e)
         {
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
         }
@@ -115,6 +132,15 @@ namespace DeviceCommander
                 for (int i = 0; i < 10; i++)
                     CommandPanel.Width = CommandPanel.Width + 20;
             Timer.Stop();
+        }
+        private async void Timer_Tick2(object sender, EventArgs e)
+        {
+            await ConnectionCheck.IsConnected();
+        }
+        private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+  
+
         }
     }
 

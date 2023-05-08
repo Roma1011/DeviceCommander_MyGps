@@ -46,6 +46,10 @@
             this.PnlNav = new System.Windows.Forms.Label();
             this.PnFill = new System.Windows.Forms.Panel();
             this.PnPage = new System.Windows.Forms.Panel();
+            this.TablePanel = new System.Windows.Forms.Panel();
+            this.DataGrid = new System.Windows.Forms.DataGridView();
+            this.Imei = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MobNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SendButton = new System.Windows.Forms.Button();
@@ -60,6 +64,8 @@
             this.TLPnlMenu.SuspendLayout();
             this.PnFill.SuspendLayout();
             this.PnPage.SuspendLayout();
+            this.TablePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.CommandPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -281,6 +287,7 @@
             // PnPage
             // 
             this.PnPage.BackColor = System.Drawing.Color.White;
+            this.PnPage.Controls.Add(this.TablePanel);
             this.PnPage.Controls.Add(this.CommandPanel);
             this.PnPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnPage.Location = new System.Drawing.Point(0, 0);
@@ -288,9 +295,48 @@
             this.PnPage.Size = new System.Drawing.Size(1275, 630);
             this.PnPage.TabIndex = 0;
             // 
+            // TablePanel
+            // 
+            this.TablePanel.Controls.Add(this.DataGrid);
+            this.TablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TablePanel.Location = new System.Drawing.Point(198, 0);
+            this.TablePanel.Name = "TablePanel";
+            this.TablePanel.Size = new System.Drawing.Size(1077, 630);
+            this.TablePanel.TabIndex = 1;
+            // 
+            // DataGrid
+            // 
+            this.DataGrid.BackgroundColor = System.Drawing.Color.White;
+            this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Imei,
+            this.MobNumber});
+            this.DataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGrid.Location = new System.Drawing.Point(0, 0);
+            this.DataGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.DataGrid.Name = "DataGrid";
+            this.DataGrid.RowTemplate.Height = 25;
+            this.DataGrid.Size = new System.Drawing.Size(1077, 630);
+            this.DataGrid.TabIndex = 0;
+            this.DataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellContentClick);
+            // 
+            // Imei
+            // 
+            this.Imei.HeaderText = "Imei";
+            this.Imei.Name = "Imei";
+            this.Imei.ReadOnly = true;
+            this.Imei.Width = 625;
+            // 
+            // MobNumber
+            // 
+            this.MobNumber.HeaderText = "MobileNumber";
+            this.MobNumber.Name = "MobNumber";
+            this.MobNumber.ReadOnly = true;
+            this.MobNumber.Width = 625;
+            // 
             // CommandPanel
             // 
-            this.CommandPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(153)))), ((int)(((byte)(248)))));
+            this.CommandPanel.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.CommandPanel.Controls.Add(this.tableLayoutPanel1);
             this.CommandPanel.Controls.Add(this.panel2);
             this.CommandPanel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -415,6 +461,8 @@
             this.TLPnlMenu.ResumeLayout(false);
             this.PnFill.ResumeLayout(false);
             this.PnPage.ResumeLayout(false);
+            this.TablePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.CommandPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -450,5 +498,9 @@
         private TextBox DeviceNameInfo;
         private Button SendButton;
         private System.Windows.Forms.Timer Timer;
+        private Panel TablePanel;
+        private DataGridView DataGrid;
+        private DataGridViewTextBoxColumn Imei;
+        private DataGridViewTextBoxColumn MobNumber;
     }
 }
