@@ -7,9 +7,11 @@ namespace DeviceCommander
     {
         private bool mouseDown;
         private Point lastMousePosition;
+
         public MainWindow()
         {
             InitializeComponent();
+            CommandPanel.Width = 0;
         }
 
         void AddForm(Form frm, Button btn)
@@ -17,13 +19,13 @@ namespace DeviceCommander
             switch (btn.Name)
             {
                 case "StartButton":
-                   
+
                     break;
                 case "StopButton":
-                    
+
                     break;
                 case "ConectedDeviceButton":
-                   
+
                     break;
                 default:
                     break;
@@ -31,16 +33,18 @@ namespace DeviceCommander
 
             AddOwnedForm(frm);
             frm.TopLevel = false;
-            frm.Dock= DockStyle.Fill;
+            frm.Dock = DockStyle.Fill;
             frm.BringToFront();
         }
 
         private async void TLPnl_MouseMove(object sender, MouseEventArgs e)
         {
-            (Point newWindowPosition, Point updatedLastMousePosition) = await MouseService.MoveWindow(mouseDown, lastMousePosition, MousePosition, this.Location);
+            (Point newWindowPosition, Point updatedLastMousePosition) =
+                await MouseService.MoveWindow(mouseDown, lastMousePosition, MousePosition, this.Location);
             this.Location = newWindowPosition;
             lastMousePosition = updatedLastMousePosition;
         }
+
         private void TLPnl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -49,13 +53,13 @@ namespace DeviceCommander
 
         private void TLPnl_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown=false;
+            mouseDown = false;
         }
 
         private void SearchBar_MouseClick(object sender, MouseEventArgs e)
         {
             LineSearch.Visible = true;
-            SearchBar.BackColor = Color.FromArgb(139,199,255);
+            SearchBar.BackColor = Color.FromArgb(139, 199, 255);
         }
 
         private void SearchBar_Leave(object sender, EventArgs e)
@@ -73,27 +77,44 @@ namespace DeviceCommander
         {
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
         }
+
         private async void DeviceCommander_Click(object sender, EventArgs e)
         {
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
+            Timer.Start();
         }
-        private void CloseButton_Click(object sender, EventArgs e)
+
+        private async void CloseButton_Click(object sender, EventArgs e)
         {
-           this.Close();
+            this.Close();
         }
-        private void MinimizeButton_Click(object sender, EventArgs e)
+
+        private async void MinimizeButton_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        private void SearchButton_Click(object sender, EventArgs e)
+        private async void SearchButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private async void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            if (CommandPanel.Width >= 196)
+                for (int i = 0; i < 10; i++)
+                    CommandPanel.Width = CommandPanel.Width - 20;
+
+
+            else
+                for (int i = 0; i < 10; i++)
+                    CommandPanel.Width = CommandPanel.Width + 20;
+            Timer.Stop();
         }
     }
 

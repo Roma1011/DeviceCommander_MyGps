@@ -18,7 +18,7 @@ namespace DeviceCommander.Services.ButtonServices
                 case "StopButton":
                     navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height - 16);
                     break;
-                case "DeviceCommander":
+                case "DeviceCommanderButton":
                     navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height * 2 + 10);
                     break;
                 default:

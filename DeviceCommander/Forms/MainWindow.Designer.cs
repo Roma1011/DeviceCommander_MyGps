@@ -39,27 +39,28 @@
             this.SearchBar = new System.Windows.Forms.TextBox();
             this.AppLabelName = new System.Windows.Forms.Label();
             this.TLPnlMenu = new System.Windows.Forms.TableLayoutPanel();
-            this.DeviceCommander = new System.Windows.Forms.Button();
+            this.DeviceCommanderButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.ImageList1 = new System.Windows.Forms.ImageList(this.components);
             this.PnlNav = new System.Windows.Forms.Label();
             this.PnFill = new System.Windows.Forms.Panel();
             this.PnPage = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.SendButton = new System.Windows.Forms.Button();
             this.DeviceNameInfo = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PingButton = new System.Windows.Forms.Button();
             this.DisconnectButton = new System.Windows.Forms.Button();
             this.ElipsePnl = new Bunifu.Framework.UI.BunifuElipse(this.components);
-            this.SendButton = new System.Windows.Forms.Button();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.TLPnl.SuspendLayout();
             this.PNLSearch.SuspendLayout();
             this.TLPnlMenu.SuspendLayout();
             this.PnFill.SuspendLayout();
             this.PnPage.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.CommandPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -181,7 +182,7 @@
             // 
             this.TLPnlMenu.ColumnCount = 1;
             this.TLPnlMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TLPnlMenu.Controls.Add(this.DeviceCommander, 0, 2);
+            this.TLPnlMenu.Controls.Add(this.DeviceCommanderButton, 0, 2);
             this.TLPnlMenu.Controls.Add(this.StartButton, 0, 0);
             this.TLPnlMenu.Controls.Add(this.StopButton, 0, 1);
             this.TLPnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -197,22 +198,22 @@
             this.TLPnlMenu.Size = new System.Drawing.Size(92, 650);
             this.TLPnlMenu.TabIndex = 1;
             // 
-            // DeviceCommander
+            // DeviceCommanderButton
             // 
-            this.DeviceCommander.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceCommander.FlatAppearance.BorderSize = 0;
-            this.DeviceCommander.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeviceCommander.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DeviceCommander.ForeColor = System.Drawing.Color.Black;
-            this.DeviceCommander.Image = ((System.Drawing.Image)(resources.GetObject("DeviceCommander.Image")));
-            this.DeviceCommander.Location = new System.Drawing.Point(3, 183);
-            this.DeviceCommander.Name = "DeviceCommander";
-            this.DeviceCommander.Size = new System.Drawing.Size(86, 464);
-            this.DeviceCommander.TabIndex = 2;
-            this.DeviceCommander.Text = "Command";
-            this.DeviceCommander.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.DeviceCommander.UseVisualStyleBackColor = true;
-            this.DeviceCommander.Click += new System.EventHandler(this.DeviceCommander_Click);
+            this.DeviceCommanderButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceCommanderButton.FlatAppearance.BorderSize = 0;
+            this.DeviceCommanderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeviceCommanderButton.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DeviceCommanderButton.ForeColor = System.Drawing.Color.Black;
+            this.DeviceCommanderButton.Image = ((System.Drawing.Image)(resources.GetObject("DeviceCommanderButton.Image")));
+            this.DeviceCommanderButton.Location = new System.Drawing.Point(3, 183);
+            this.DeviceCommanderButton.Name = "DeviceCommanderButton";
+            this.DeviceCommanderButton.Size = new System.Drawing.Size(86, 464);
+            this.DeviceCommanderButton.TabIndex = 2;
+            this.DeviceCommanderButton.Text = "Command";
+            this.DeviceCommanderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.DeviceCommanderButton.UseVisualStyleBackColor = true;
+            this.DeviceCommanderButton.Click += new System.EventHandler(this.DeviceCommander_Click);
             // 
             // StartButton
             // 
@@ -280,23 +281,23 @@
             // PnPage
             // 
             this.PnPage.BackColor = System.Drawing.Color.White;
-            this.PnPage.Controls.Add(this.panel1);
+            this.PnPage.Controls.Add(this.CommandPanel);
             this.PnPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnPage.Location = new System.Drawing.Point(0, 0);
             this.PnPage.Name = "PnPage";
             this.PnPage.Size = new System.Drawing.Size(1275, 630);
             this.PnPage.TabIndex = 0;
             // 
-            // panel1
+            // CommandPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(153)))), ((int)(((byte)(248)))));
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(198, 630);
-            this.panel1.TabIndex = 0;
+            this.CommandPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(153)))), ((int)(((byte)(248)))));
+            this.CommandPanel.Controls.Add(this.tableLayoutPanel1);
+            this.CommandPanel.Controls.Add(this.panel2);
+            this.CommandPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CommandPanel.Location = new System.Drawing.Point(0, 0);
+            this.CommandPanel.Name = "CommandPanel";
+            this.CommandPanel.Size = new System.Drawing.Size(198, 630);
+            this.CommandPanel.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -316,6 +317,20 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 463);
             this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // SendButton
+            // 
+            this.SendButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SendButton.FlatAppearance.BorderSize = 0;
+            this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SendButton.Image = ((System.Drawing.Image)(resources.GetObject("SendButton.Image")));
+            this.SendButton.Location = new System.Drawing.Point(3, 397);
+            this.SendButton.Name = "SendButton";
+            this.SendButton.Size = new System.Drawing.Size(194, 63);
+            this.SendButton.TabIndex = 3;
+            this.SendButton.Text = "Send";
+            this.SendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.SendButton.UseVisualStyleBackColor = true;
             // 
             // DeviceNameInfo
             // 
@@ -372,19 +387,10 @@
             this.ElipsePnl.ElipseRadius = 15;
             this.ElipsePnl.TargetControl = this.PNLSearch;
             // 
-            // SendButton
+            // Timer
             // 
-            this.SendButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SendButton.FlatAppearance.BorderSize = 0;
-            this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SendButton.Image = ((System.Drawing.Image)(resources.GetObject("SendButton.Image")));
-            this.SendButton.Location = new System.Drawing.Point(3, 397);
-            this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(194, 63);
-            this.SendButton.TabIndex = 3;
-            this.SendButton.Text = "Send";
-            this.SendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.SendButton.UseVisualStyleBackColor = true;
+            this.Timer.Interval = 500;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // MainWindow
             // 
@@ -409,7 +415,7 @@
             this.TLPnlMenu.ResumeLayout(false);
             this.PnFill.ResumeLayout(false);
             this.PnPage.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.CommandPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -430,18 +436,19 @@
         private Label LineSearch;
         private Label AppLabelName;
         private Button StartButton;
-        private Button DeviceCommander;
+        private Button DeviceCommanderButton;
         private Button StopButton;
         private Label PnlNav;
         private Panel PnFill;
         private Panel PnPage;
         private Bunifu.Framework.UI.BunifuElipse ElipsePnl;
-        private Panel panel1;
+        private Panel CommandPanel;
         private Panel panel2;
         private Button DisconnectButton;
         private Button PingButton;
         private TableLayoutPanel tableLayoutPanel1;
         private TextBox DeviceNameInfo;
         private Button SendButton;
+        private System.Windows.Forms.Timer Timer;
     }
 }
