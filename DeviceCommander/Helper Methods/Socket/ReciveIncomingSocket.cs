@@ -27,9 +27,10 @@ namespace DeviceCommander.Helper_Methods.Socket
                         var receivedString = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
 
                         string[] reciveImei=await s.Parse(receivedString);
+
                         if (reciveImei!=null)
                         {
-                            reflectionGridData.AddData(dataGridView, reciveImei);
+                            await reflectionGridData.AddData(dataGridView, reciveImei);
 
                             var existingSocket = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item1 == socketItem);
 
