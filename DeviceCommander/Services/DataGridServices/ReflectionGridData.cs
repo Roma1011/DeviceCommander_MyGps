@@ -5,28 +5,38 @@ namespace DeviceCommander.Services.DataGridServices
 {
     public class ReflectionGridData
     {
-        public async Task AddData(DataGridView dataGrid, string[]item)
+
+        public object padlock = new object();
+
+
+        public async Task AddData(DataGridView dataGrid, string[] item)
         {
             bool found = false;
-            foreach (DataGridViewRow row in dataGrid.Rows)
+
+            dataGrid.Invoke(new Action(() =>
             {
-                bool match = true;
-                for (int i = 0; i < item.Length; i++)
+                foreach (DataGridViewRow row in dataGrid.Rows)
                 {
-                    if (row.Cells[i].Value == null || row.Cells[i].Value.ToString() != item[i])
+                    bool match = true;
+                    for (int i = 0; i < item.Length; i++)
                     {
-                        match = false;
-                        continue;
+                        if (row.Cells[i].Value == null || row.Cells[i].Value.ToString() != item[i])
+                        {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match)
+                    {
+                        found = true;
+                        break;
                     }
                 }
-                if (match)
-                {
-                    found = true;
-                    continue;
-                }
-            }
-            if (!found)
-                dataGrid.Rows.Add(item);
+
+                if (!found)
+                    dataGrid.Rows.Add(item);
+            }));
         }
     }
 }

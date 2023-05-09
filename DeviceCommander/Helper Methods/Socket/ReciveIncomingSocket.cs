@@ -20,8 +20,10 @@ namespace DeviceCommander.Helper_Methods.Socket
                 {
                     StartPingParser s = new StartPingParser();
                     ReflectionGridData reflectionGridData = new ReflectionGridData();
+
                     var buffer = new byte[1024];
                     var numberOfReceivedBytes = await socketItem.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+
                     if (numberOfReceivedBytes > 0)
                     {
                         var receivedString = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
