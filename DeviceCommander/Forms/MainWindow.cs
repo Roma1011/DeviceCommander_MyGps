@@ -23,7 +23,7 @@ namespace DeviceCommander
             CommandPanel.Width = 0;
             PreparationSocket.CreateListenerSocket(ref listenerSocket);
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 5000; // set interval to 5 seconds
+            timer.Interval = 50; // set interval to 5 seconds
             timer.Tick += Timer_Tick2;
         }
 
@@ -135,7 +135,7 @@ namespace DeviceCommander
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
-            await ConnectionCheck.IsConnected();
+            await ConnectionCheck.IsConnected(DataGrid);
         }
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

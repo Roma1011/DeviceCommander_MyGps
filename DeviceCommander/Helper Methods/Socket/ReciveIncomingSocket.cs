@@ -18,7 +18,7 @@ namespace DeviceCommander.Helper_Methods.Socket
             {
                 Parallel.ForEach(HelperProperties.Properties.IncomingSockets, async socketItem =>
                 {
-                    StartPingParser s = new StartPingParser();
+                    StartPingParser startParser = new StartPingParser();
                     ReflectionGridData reflectionGridData = new ReflectionGridData();
 
                     var buffer = new byte[1024];
@@ -28,7 +28,7 @@ namespace DeviceCommander.Helper_Methods.Socket
                     {
                         var receivedString = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
 
-                        string[] reciveImei=await s.Parse(receivedString);
+                        string[] reciveImei=await startParser.Parse(receivedString);
 
                         if (reciveImei!=null)
                         {
