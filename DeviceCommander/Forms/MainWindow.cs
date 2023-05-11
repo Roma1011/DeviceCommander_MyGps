@@ -17,10 +17,14 @@ namespace DeviceCommander
         ConfirmConnection confirm = new ConfirmConnection();
         ReciveIncomingSocket recive=new ReciveIncomingSocket();
         private System.Windows.Forms.Timer timer;
+
+        static CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationToken token = cts.Token;
         public MainWindow()
         {
             InitializeComponent();
             CommandPanel.Width = 0;
+            StopButton.Enabled=false;
             PreparationSocket.CreateListenerSocket(ref listenerSocket);
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 50; // set interval to 5 seconds
@@ -83,15 +87,22 @@ namespace DeviceCommander
 
         private async void StartButton_Click(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(() => confirm.AcceptConnection(listenerSocket));
-            Task.Factory.StartNew(() => recive.ReciveData(DataGrid));
+            Task.Factory.StartNew(() => confirm.AcceptConnection(listenerSocket, token), token);
+            Task.Factory.StartNew(() => recive.ReciveData(DataGrid, token), token);
+
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             timer.Start();
-
+            StopButton.Enabled = true;
             StartButton.Enabled = false;
         }
         private async void StopButton_Click(object sender, EventArgs e)
         {
+            cts.Cancel();
+            timer.Stop();
+            ClearSocketData.CloseConnection();//gasasworebelia roca ishleba yvelaferi 
+
+            StartButton.Enabled = true;
+            StopButton.Enabled = false;
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
         }
 

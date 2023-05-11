@@ -10,15 +10,38 @@ namespace DeviceCommander.Helper_Methods.Socket
 {
     public class ConfirmConnection
     {
-        public async Task AcceptConnection(System.Net.Sockets.Socket listenerSocket)
+        public async Task AcceptConnection(System.Net.Sockets.Socket listenerSocket, CancellationToken cancellationToken)
         {
             while (true)
             {
-                System.Net.Sockets.Socket acceptedSocket = await listenerSocket.AcceptAsync();
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                System.Net.Sockets.Socket acceptedSocket = null;
+
+                try
+                {
+                    acceptedSocket = await listenerSocket.AcceptAsync();
+                }
+                catch (ObjectDisposedException)
+                {
+                    break;
+                }
+                catch (SocketException ex)
+                {
+                    if (ex.SocketErrorCode != SocketError.OperationAborted)
+                    {
+                        throw;
+                    }
+                }
+
                 HelperProperties.Properties.IncomingSockets.Add(acceptedSocket);
-                Thread.Sleep(1000);
+                await Task.Delay(1000, cancellationToken);
             }
         }
+
 
     }
 }
