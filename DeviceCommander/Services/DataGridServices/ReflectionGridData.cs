@@ -9,7 +9,7 @@ namespace DeviceCommander.Services.DataGridServices
         public object padlock = new object();
 
 
-        public async Task AddData(DataGridView dataGrid, string[] item)
+        public static async Task AddData(DataGridView dataGrid, string[] item)
         {
             bool found = false;
 

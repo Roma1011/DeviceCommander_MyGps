@@ -15,7 +15,7 @@ namespace DeviceCommander
         private Point lastMousePosition;
         private Socket listenerSocket;
         ConfirmConnection confirm = new ConfirmConnection();
-        ReciveIncomingSocket recive=new ReciveIncomingSocket();
+        ReceiveIncomingSocket recive =new ReceiveIncomingSocket();
         private System.Windows.Forms.Timer timer;
 
         static CancellationTokenSource cts = new CancellationTokenSource();
@@ -87,8 +87,8 @@ namespace DeviceCommander
 
         private async void StartButton_Click(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(() => confirm.AcceptConnection(listenerSocket, token), token);
-            Task.Factory.StartNew(() => recive.ReciveData(DataGrid, token), token);
+            Task.Factory.StartNew(async() => confirm.AcceptConnection(listenerSocket, token), token);
+            Task.Factory.StartNew(async() => recive.ReceiveData(DataGrid, token), token);
 
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             timer.Start();

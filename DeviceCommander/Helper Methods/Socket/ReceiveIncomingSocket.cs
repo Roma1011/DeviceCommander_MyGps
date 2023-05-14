@@ -11,36 +11,32 @@ using System.Windows.Forms.VisualStyles;
 
 namespace DeviceCommander.Helper_Methods.Socket
 {
-    public class ReciveIncomingSocket
+    public class ReceiveIncomingSocket
     {
-        public async Task ReciveData(DataGridView dataGridView, CancellationToken cts)
+        public async Task ReceiveData(DataGridView dataGridView, CancellationToken cts)
         {
             while (!cts.IsCancellationRequested)
             {
-                Parallel.ForEach(HelperProperties.Properties.IncomingSockets, async socketItem =>
+                foreach (var socketItem in HelperProperties.Properties.IncomingSockets)
                 {
-                    StartPingParser startParser = new StartPingParser();
-                    ReflectionGridData reflectionGridData = new ReflectionGridData();
-
-                    if (HelperProperties.Properties.IncomingSockets.Count != 0)
+                    if (!cts.IsCancellationRequested)
                     {
                         var buffer = new byte[1024];
-
                         try
                         {
-                            var numberOfReceivedBytes = await socketItem.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+                            var numberOfReceivedBytes = await socketItem.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None, cts);
 
                             if (numberOfReceivedBytes > 0)
                             {
                                 var receivedString = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
+                                string[] receiveImei = await StartPingParser.Parse(receivedString);
 
-                                string[] reciveImei = await startParser.Parse(receivedString);
-
-                                if (reciveImei != null)
+                                if (receiveImei != null)
                                 {
-                                    await reflectionGridData.AddData(dataGridView, reciveImei);
+                                    await ReflectionGridData.AddData(dataGridView, receiveImei);
 
-                                    var existingSocket = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item1 == socketItem);
+                                    var existingSocket = HelperProperties.Properties.IncomingData.FirstOrDefault(x =>
+                                        x.Item1 == socketItem);
 
                                     if (existingSocket.Item1 == null)
                                     {
@@ -48,23 +44,28 @@ namespace DeviceCommander.Helper_Methods.Socket
                                     }
                                     else
                                     {
-                                        HelperProperties.Properties.IncomingData[HelperProperties.Properties.IncomingData.IndexOf(existingSocket)] = (socketItem, receivedString);
+                                        HelperProperties.Properties.IncomingData[HelperProperties.Properties.IncomingData.IndexOf(existingSocket)] =
+                                            (socketItem, receivedString);
                                     }
                                 }
                             }
                         }
-                        catch (SocketException ex)
+                        catch (SocketException )
                         {
-
+                            return;
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // Task was cancelled, exit gracefully
                             return;
                         }
                     }
-                });
+                }
             }
         }
-
     }
 }
+
 //async Task Body(System.Net.Sockets.Socket socketItem)
 //{
 //    StartPingParser startParser = new StartPingParser();

@@ -17,7 +17,6 @@ namespace DeviceCommander.Helper_Methods.Socket
             List<(System.Net.Sockets.Socket, string)> incomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
             List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
-            StartPingParser startParser = new StartPingParser();
 
             foreach (var item in incomingSocketsCopy)
             {
@@ -34,7 +33,6 @@ namespace DeviceCommander.Helper_Methods.Socket
             // Loop through incoming data and check if the socket is still connected
             foreach (var item in HelperProperties.Properties.IncomingData)
             {
-                bool found = false;
                 bool connected = item.Item1.Connected && !((item.Item1.Poll(1000, SelectMode.SelectRead) && (item.Item1.Available == 0)));
                 if (connected)
                 {
@@ -43,7 +41,7 @@ namespace DeviceCommander.Helper_Methods.Socket
                 else
                 {
                     // If the socket is not connected, remove the corresponding row from the DataGridView
-                    string[] reciveImei = await startParser.Parse(item.Item2);
+                    string[] reciveImei = await StartPingParser.Parse(item.Item2);
                     rowsToRemove.Clear(); // Clear the list before using it again
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {

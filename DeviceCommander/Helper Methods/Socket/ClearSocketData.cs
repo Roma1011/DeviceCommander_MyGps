@@ -18,8 +18,8 @@ namespace DeviceCommander.Helper_Methods.Socket
             {
                 item.Close();
             }
-            HelperProperties.Properties.IncomingData=default;
-            HelperProperties.Properties.IncomingSockets= default;
+            HelperProperties.Properties.IncomingData=new List<(System.Net.Sockets.Socket, string)>();
+            HelperProperties.Properties.IncomingSockets= new List<System.Net.Sockets.Socket>();
         }
     }
 }
