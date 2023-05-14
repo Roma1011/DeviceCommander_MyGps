@@ -14,33 +14,35 @@ namespace DeviceCommander.Helper_Methods.Socket
         public static async Task IsConnected(DataGridView dataGridView)
         {
             List<System.Net.Sockets.Socket> connectedSockets = new List<System.Net.Sockets.Socket>();
-
-            List<(System.Net.Sockets.Socket, string)> IncomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
+            List<(System.Net.Sockets.Socket, string)> incomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
+            List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
             StartPingParser startParser = new StartPingParser();
 
-            foreach (var item in HelperProperties.Properties.IncomingSockets)
+            foreach (var item in incomingSocketsCopy)
             {
-                // Assume you have a Socket object named "socket"
-
                 bool connected = item.Connected && !((item.Poll(1000, SelectMode.SelectRead) && (item.Available == 0)));
                 if (connected)
                 {
                     connectedSockets.Add(item);
                 }
             }
+
             HelperProperties.Properties.IncomingSockets = connectedSockets;
 
+
+            // Loop through incoming data and check if the socket is still connected
             foreach (var item in HelperProperties.Properties.IncomingData)
             {
                 bool found = false;
                 bool connected = item.Item1.Connected && !((item.Item1.Poll(1000, SelectMode.SelectRead) && (item.Item1.Available == 0)));
                 if (connected)
                 {
-                    IncomingDataConnected.Add((item.Item1, item.Item2));
+                    incomingDataConnected.Add((item.Item1, item.Item2));
                 }
                 else
                 {
+                    // If the socket is not connected, remove the corresponding row from the DataGridView
                     string[] reciveImei = await startParser.Parse(item.Item2);
                     rowsToRemove.Clear(); // Clear the list before using it again
                     foreach (DataGridViewRow row in dataGridView.Rows)
@@ -56,22 +58,27 @@ namespace DeviceCommander.Helper_Methods.Socket
                         }
                         if (match)
                         {
-                            dataGridView.Invoke(new Action(() =>
-                            {
-                                if (dataGridView.Rows.Contains(row))
-                                {
-                                    dataGridView.Rows.Remove(row);
-                                    dataGridView.Refresh();
-                                }
-                            }));
-                            break;
+                            rowsToRemove.Add(row);
                         }
+                    }
+                    foreach (var rowToRemove in rowsToRemove)
+                    {
+                        dataGridView.Invoke(new Action(() =>
+                        {
+                            if (dataGridView.Rows.Contains(rowToRemove))
+                            {
+                                dataGridView.Rows.Remove(rowToRemove);
+                                dataGridView.Refresh();
+                            }
+                        }));
                     }
                 }
             }
 
-            HelperProperties.Properties.IncomingData = IncomingDataConnected;
+            // Update the incoming data list with the connected data
+            HelperProperties.Properties.IncomingData = incomingDataConnected;
         }
+
 
     }
 }

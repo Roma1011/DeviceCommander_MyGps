@@ -9,7 +9,14 @@ namespace DeviceCommander.HelperProperties
 {
     public class Properties
     {
-        public static List<Socket> IncomingSockets { get; set; }= new List<Socket>();
+        private static List<Socket> incomingSockets = new List<Socket>();
+
+        public static List<Socket> IncomingSockets
+        {
+            get { return incomingSockets; }
+            set { incomingSockets = value; }
+        }
+
         public static List<(Socket,string)> IncomingData { get; set; }=new List<(Socket,string)> { };
     }
 }
