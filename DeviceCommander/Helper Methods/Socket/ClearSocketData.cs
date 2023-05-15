@@ -19,8 +19,8 @@ namespace DeviceCommander.Helper_Methods.Socket
             {
                 item.Close();
             }
-            HelperProperties.Properties.IncomingData=new List<(TcpClient, string)>();
-            HelperProperties.Properties.IncomingSockets= new List<TcpClient>();
+            HelperProperties.Properties.IncomingData=new List<(System.Net.Sockets.Socket, string)>();
+            HelperProperties.Properties.IncomingSockets= new List<System.Net.Sockets.Socket>();
         }
     }
 }

@@ -6,48 +6,55 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using DeviceCommander.HelperProperties;
 
-namespace DeviceCommander.Helper_Methods.Socket
+namespace DeviceCommander.Helper_Methods.Socket;
+public class ConfirmConnection
 {
-    public class ConfirmConnection
+    List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
+    public async Task AcceptConnection(CancellationToken cancellationToken)
     {
-        public async Task AcceptConnection(TcpListener listenerSocket, CancellationToken cancellationToken)
+        while (true)
         {
-            List<TcpClient> incomingSocketsCopy = new List<TcpClient>(HelperProperties.Properties.IncomingSockets);
-            while (true)
+            if (cancellationToken.IsCancellationRequested)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-
-                TcpClient acceptedSocket = new TcpClient();
-
-                try
-                {
-                    acceptedSocket = await listenerSocket.AcceptTcpClientAsync(cancellationToken);
-                }
-                catch (ObjectDisposedException)
-                {
-                    break;
-                }
-                catch (SocketException ex)
-                {
-                    if (ex.SocketErrorCode != SocketError.OperationAborted)
-                    {
-                        throw;
-                    }
-                }
-
-                if (acceptedSocket != null)
-                {
-                    incomingSocketsCopy.Add(acceptedSocket);
-                    HelperProperties.Properties.IncomingSockets = incomingSocketsCopy;
-                }
-                
+                break;
             }
 
-            await Task.Delay(1000, cancellationToken);
+
+            TcpClient acceptedSocket = new TcpClient();
+
+            try
+            {
+                HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            }
+            catch (ObjectDisposedException)
+            {
+                break;
+            }
+            catch (SocketException ex)
+            {
+                if (ex.SocketErrorCode != SocketError.OperationAborted)
+                {
+                    throw;
+                }
+            }
         }
 
+        await Task.Delay(1000, cancellationToken);
+    }
+
+    private void AcceptCallback(IAsyncResult ar)
+    {
+        try
+        {
+            incomingSocketsCopy.Add(HelperProperties.Properties._listenerSocket.EndAccept(ar));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        HelperProperties.Properties.IncomingSockets = incomingSocketsCopy;
     }
 }
+

@@ -13,24 +13,23 @@ namespace DeviceCommander
     {
         private bool mouseDown;
         private Point lastMousePosition;
-        private TcpListener listenerSocket;
+        //=====================================================================
         ConfirmConnection confirm = new ConfirmConnection();
         ReceiveIncomingSocket recive =new ReceiveIncomingSocket();
         private System.Windows.Forms.Timer timer;
-
+        //=====================================================================
         static CancellationTokenSource cts = new CancellationTokenSource();
         CancellationToken token = cts.Token;
+        //=====================================================================
         public MainWindow()
         {
             InitializeComponent();
             CommandPanel.Width = 0;
             StopButton.Enabled=false;
-            PreparationSocket.CreateListenerSocket(ref listenerSocket);
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 50; // set interval to 5 seconds
             timer.Tick += Timer_Tick2;
         }
-
         void AddForm(Form frm, Button btn)
         {
             switch (btn.Name)
@@ -87,27 +86,23 @@ namespace DeviceCommander
 
         private async void StartButton_Click(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(async () => confirm.AcceptConnection(listenerSocket, cts.Token), cts.Token);
-            Task.Factory.StartNew(async () => recive.ReceiveData(DataGrid, cts.Token), cts.Token);
-
+            Task.Factory.StartNew(async () => PreparationSocket.CreateListenerSocket(DataGrid, token));
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
-            timer.Start();
             StopButton.Enabled = true;
             StartButton.Enabled = false;
         }
         private async void StopButton_Click(object sender, EventArgs e)
         {
-            // Cancel the shared cancellation token source to cancel the running tasks
             cts.Cancel();
 
-            timer.Stop();
+            //timer.Stop();
             ClearSocketData.CloseConnection();
 
             StartButton.Enabled = true;
             StopButton.Enabled = false;
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
 
-            // Create a new cancellation token source to use for the next time the StartButton is clicked
+            //// Create a new cancellation token source to use for the next time the StartButton is clicked
             cts = new CancellationTokenSource();
         }
 
@@ -151,11 +146,16 @@ namespace DeviceCommander
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
-            await ConnectionCheck.IsConnected(DataGrid);
+            //await ConnectionCheck.IsConnected(DataGrid);
         }
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
   
+
+        }
+
+        private void SendButton_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -7,69 +7,70 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace DeviceCommander.Helper_Methods.Socket
+namespace DeviceCommander.Helper_Methods.Socket;
+public class ReceiveIncomingSocket
 {
-    public class ReceiveIncomingSocket
+    private byte[] buffer;
+    private DataGridView dataGrid;
+    public async Task ReceiveData(DataGridView dataGridView, CancellationToken cts)
     {
-        private NetworkStream stream = null;
-        private StreamReader reader = null;
-        public async Task ReceiveData(DataGridView dataGridView, CancellationToken cts)
+        dataGrid = dataGridView;
+        while (!cts.IsCancellationRequested)
         {
-            while (!cts.IsCancellationRequested)
+            foreach (var socketItem in HelperProperties.Properties.IncomingSockets)
             {
-                foreach (var socketItem in HelperProperties.Properties.IncomingSockets)
+                if (!cts.IsCancellationRequested)
                 {
-                    if (!cts.IsCancellationRequested)
+                    
+                    try
                     {
-                        
-                        try
-                        {
-                            var buffer = new char[1024];
-                            stream = socketItem.GetStream();
-                            reader = new StreamReader(stream);
-                            int numberOfReceivedBytes = await reader.ReadAsync(buffer, 0, buffer.Length);
-                           if (numberOfReceivedBytes > 0)
-                            {
-                                string receivedString = new string(buffer);
-                                string[] receiveImei = await StartPingParser.Parse(receivedString);
-
-                                if (receiveImei != null)
-                                {
-                                    await ReflectionGridData.AddData(dataGridView, receiveImei);
-
-                                    var existingSocket = HelperProperties.Properties.IncomingData.FirstOrDefault(x =>
-                                        x.Item1 == socketItem);
-
-                                    if (existingSocket.Item1 == null)
-                                    {
-                                        HelperProperties.Properties.IncomingData.Add((socketItem, receivedString));
-                                    }
-                                    else
-                                    {
-                                        HelperProperties.Properties.IncomingData[HelperProperties.Properties.IncomingData.IndexOf(existingSocket)] =
-                                            (socketItem, receivedString);
-                                    }
-                                }
-
-                            }
-                            Array.Clear(buffer,0,buffer.Length);
-                        }
-                        catch (SocketException )
-                        {
-                            return;
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            // Task was cancelled, exit gracefully
-                            return;
-                        }
+                        byte[] buffer = new Byte[socketItem.ReceiveBufferSize];
+                        socketItem.BeginReceive(buffer, 0, buffer.Length,SocketFlags.None,new AsyncCallback(ReceiveCallback), null);
+                    }
+                    catch (SocketException )
+                    {
+                        return;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Task was cancelled, exit gracefully
+                        return;
                     }
                 }
             }
         }
     }
+
+    private void ReceiveCallback(IAsyncResult ar)
+    {
+        try
+        {
+            System.Net.Sockets.Socket socket = (System.Net.Sockets.Socket)ar.AsyncState;
+            int bytesRead = socket.EndReceive(ar);
+
+            if (bytesRead > 0)
+            {
+                string text = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                string[] receiveImei = StartPingParser.Parse(text);
+
+                if (receiveImei != null)
+                {
+                    ReflectionGridData.AddData(dataGrid, receiveImei);
+                }
+            }
+
+            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
 }
 
 //async Task Body(System.Net.Sockets.Socket socketItem)

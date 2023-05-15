@@ -377,6 +377,7 @@
             this.SendButton.Text = "Send";
             this.SendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.SendButton.UseVisualStyleBackColor = true;
+            this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
             // DeviceNameInfo
             // 
