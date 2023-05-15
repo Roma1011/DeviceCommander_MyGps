@@ -87,8 +87,8 @@ namespace DeviceCommander
 
         private async void StartButton_Click(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(async() => confirm.AcceptConnection(listenerSocket, token), token);
-            Task.Factory.StartNew(async() => recive.ReceiveData(DataGrid, token), token);
+            Task.Factory.StartNew(async () => confirm.AcceptConnection(listenerSocket, cts.Token), cts.Token);
+            Task.Factory.StartNew(async () => recive.ReceiveData(DataGrid, cts.Token), cts.Token);
 
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             timer.Start();
@@ -97,13 +97,18 @@ namespace DeviceCommander
         }
         private async void StopButton_Click(object sender, EventArgs e)
         {
+            // Cancel the shared cancellation token source to cancel the running tasks
             cts.Cancel();
+
             timer.Stop();
-            ClearSocketData.CloseConnection();//gasasworebelia roca ishleba yvelaferi 
+            ClearSocketData.CloseConnection();
 
             StartButton.Enabled = true;
             StopButton.Enabled = false;
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
+
+            // Create a new cancellation token source to use for the next time the StartButton is clicked
+            cts = new CancellationTokenSource();
         }
 
         private async void DeviceCommander_Click(object sender, EventArgs e)
