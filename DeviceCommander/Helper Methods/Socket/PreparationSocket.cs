@@ -19,11 +19,6 @@ namespace DeviceCommander.Helper_Methods.Socket
             address = IPAddress.Any;
             listenerSocket = new TcpListener(address, port);
             listenerSocket.Start();
-            //listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //address = IPAddress.Any;
-            //ipEndPoint = new IPEndPoint(address, port);
-            //listenerSocket.Bind(ipEndPoint);
-            //listenerSocket.Listen(1000);
         }
     }
 }

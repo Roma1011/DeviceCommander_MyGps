@@ -13,17 +13,17 @@ namespace DeviceCommander.Helper_Methods.Socket
 {
     public class ReceiveIncomingSocket
     {
-        private NetworkStream stream = null;
-        private StreamReader reader = null;
+       
         public async Task ReceiveData(DataGridView dataGridView, CancellationToken cts)
         {
+            NetworkStream stream = null;
+            StreamReader reader = null;
             while (!cts.IsCancellationRequested)
             {
                 foreach (var socketItem in HelperProperties.Properties.IncomingSockets)
                 {
                     if (!cts.IsCancellationRequested)
                     {
-                        
                         try
                         {
                             var buffer = new char[1024];
@@ -45,6 +45,7 @@ namespace DeviceCommander.Helper_Methods.Socket
                                     if (existingSocket.Item1 == null)
                                     {
                                         HelperProperties.Properties.IncomingData.Add((socketItem, receivedString));
+                                        HelperProperties.Properties.IncomingSockets.Remove(socketItem);
                                     }
                                     else
                                     {

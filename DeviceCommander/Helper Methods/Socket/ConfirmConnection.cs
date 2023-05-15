@@ -24,7 +24,7 @@ namespace DeviceCommander.Helper_Methods.Socket
 
                 try
                 {
-                    acceptedSocket = await listenerSocket.AcceptTcpClientAsync(cancellationToken);
+                    acceptedSocket = listenerSocket.AcceptTcpClient();
                 }
                 catch (ObjectDisposedException)
                 {
@@ -40,8 +40,7 @@ namespace DeviceCommander.Helper_Methods.Socket
 
                 if (acceptedSocket != null)
                 {
-                    incomingSocketsCopy.Add(acceptedSocket);
-                    HelperProperties.Properties.IncomingSockets = incomingSocketsCopy;
+                    HelperProperties.Properties.IncomingSockets.Add(acceptedSocket);
                 }
                 
             }

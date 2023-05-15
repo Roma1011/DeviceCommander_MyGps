@@ -18,5 +18,6 @@ namespace DeviceCommander.HelperProperties
         }
 
         public static List<(TcpClient,string)> IncomingData { get; set; }=new List<(TcpClient,string)> { };
+        public static List<TcpClient> incomingSocketsCopy { get; set; }
     }
 }
