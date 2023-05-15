@@ -13,7 +13,7 @@ namespace DeviceCommander
     {
         private bool mouseDown;
         private Point lastMousePosition;
-        private Socket listenerSocket;
+        private TcpListener listenerSocket;
         ConfirmConnection confirm = new ConfirmConnection();
         ReceiveIncomingSocket recive =new ReceiveIncomingSocket();
         private System.Windows.Forms.Timer timer;

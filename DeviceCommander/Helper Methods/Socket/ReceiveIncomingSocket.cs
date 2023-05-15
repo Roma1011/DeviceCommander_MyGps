@@ -13,6 +13,8 @@ namespace DeviceCommander.Helper_Methods.Socket
 {
     public class ReceiveIncomingSocket
     {
+        private NetworkStream stream = null;
+        private StreamReader reader = null;
         public async Task ReceiveData(DataGridView dataGridView, CancellationToken cts)
         {
             while (!cts.IsCancellationRequested)
@@ -21,14 +23,16 @@ namespace DeviceCommander.Helper_Methods.Socket
                 {
                     if (!cts.IsCancellationRequested)
                     {
-                        var buffer = new byte[1024];
+                        
                         try
                         {
-                            var numberOfReceivedBytes = await socketItem.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None, cts);
-
-                            if (numberOfReceivedBytes > 0)
+                            var buffer = new char[1024];
+                            stream = socketItem.GetStream();
+                            reader = new StreamReader(stream);
+                            int numberOfReceivedBytes = await reader.ReadAsync(buffer, 0, buffer.Length);
+                           if (numberOfReceivedBytes > 0)
                             {
-                                var receivedString = Encoding.ASCII.GetString(buffer, 0, numberOfReceivedBytes);
+                                string receivedString = new string(buffer);
                                 string[] receiveImei = await StartPingParser.Parse(receivedString);
 
                                 if (receiveImei != null)
@@ -48,7 +52,9 @@ namespace DeviceCommander.Helper_Methods.Socket
                                             (socketItem, receivedString);
                                     }
                                 }
+
                             }
+                            Array.Clear(buffer,0,buffer.Length);
                         }
                         catch (SocketException )
                         {

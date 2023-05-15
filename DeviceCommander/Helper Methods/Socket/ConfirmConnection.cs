@@ -10,9 +10,9 @@ namespace DeviceCommander.Helper_Methods.Socket
 {
     public class ConfirmConnection
     {
-        public async Task AcceptConnection(System.Net.Sockets.Socket listenerSocket, CancellationToken cancellationToken)
+        public async Task AcceptConnection(TcpListener listenerSocket, CancellationToken cancellationToken)
         {
-            List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
+            List<TcpClient> incomingSocketsCopy = new List<TcpClient>(HelperProperties.Properties.IncomingSockets);
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -20,11 +20,11 @@ namespace DeviceCommander.Helper_Methods.Socket
                     break;
                 }
 
-                System.Net.Sockets.Socket acceptedSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                TcpClient acceptedSocket = new TcpClient();
 
                 try
                 {
-                    acceptedSocket = await listenerSocket.AcceptAsync(cancellationToken);
+                    acceptedSocket = await listenerSocket.AcceptTcpClientAsync(cancellationToken);
                 }
                 catch (ObjectDisposedException)
                 {

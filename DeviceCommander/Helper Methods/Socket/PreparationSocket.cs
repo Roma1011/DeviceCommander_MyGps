@@ -12,17 +12,18 @@ namespace DeviceCommander.Helper_Methods.Socket
     public class PreparationSocket
     {
         private static IPAddress? address;
-        private static IPEndPoint? ipEndPoint;
         static int port = 1300;
 
-        public static void CreateListenerSocket(ref System.Net.Sockets.Socket listenerSocket)
+        public static void CreateListenerSocket(ref TcpListener listenerSocket)
         {
-            listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             address = IPAddress.Any;
-            ipEndPoint = new IPEndPoint(address, port);
-            listenerSocket.Bind(ipEndPoint);
-            listenerSocket.Listen(1000);
+            listenerSocket = new TcpListener(address, port);
+            listenerSocket.Start();
+            //listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //address = IPAddress.Any;
+            //ipEndPoint = new IPEndPoint(address, port);
+            //listenerSocket.Bind(ipEndPoint);
+            //listenerSocket.Listen(1000);
         }
-
     }
 }
