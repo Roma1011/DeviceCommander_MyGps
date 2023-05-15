@@ -16,6 +16,7 @@ namespace DeviceCommander.Helper_Methods.Socket
             List<System.Net.Sockets.Socket> connectedSockets = new List<System.Net.Sockets.Socket>();
             List<(System.Net.Sockets.Socket, string)> incomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
             List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
+            List<(System.Net.Sockets.Socket, string)> incomingDataCopy = new List<(System.Net.Sockets.Socket, string)>(HelperProperties.Properties.IncomingData);
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
             foreach (var item in incomingSocketsCopy)
@@ -31,7 +32,7 @@ namespace DeviceCommander.Helper_Methods.Socket
 
 
             // Loop through incoming data and check if the socket is still connected
-            foreach (var item in HelperProperties.Properties.IncomingData)
+            foreach (var item in incomingDataCopy)
             {
                 bool connected = item.Item1.Connected && !((item.Item1.Poll(1000, SelectMode.SelectRead) && (item.Item1.Available == 0)));
                 if (connected)
@@ -72,8 +73,6 @@ namespace DeviceCommander.Helper_Methods.Socket
                     }
                 }
             }
-
-            // Update the incoming data list with the connected data
             HelperProperties.Properties.IncomingData = incomingDataConnected;
         }
 
