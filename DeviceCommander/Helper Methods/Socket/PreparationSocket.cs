@@ -10,8 +10,12 @@ public class PreparationSocket
 { 
     private static byte[] _buffer=new byte[1024];
     private static DataGridView dgr;
-    public static void CreateListenerSocket(DataGridView dg,CancellationToken cts)
+    public static void CreateListenerSocket(DataGridView dg)
     {
+        if (HelperProperties.Properties.token.IsCancellationRequested)
+        {
+            return;
+        }
         dgr = dg;
         HelperProperties.Properties._listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         HelperProperties.Properties._listenerSocket.Bind(new IPEndPoint(IPAddress.Any, 1300));
@@ -21,6 +25,10 @@ public class PreparationSocket
 
     private static void AcceptCallBack(IAsyncResult AR)
     {
+        if (HelperProperties.Properties.token.IsCancellationRequested)
+        {
+            return;
+        }
         System.Net.Sockets.Socket socket= HelperProperties.Properties._listenerSocket.EndAccept(AR);
         HelperProperties.Properties.IncomingSockets.Add(socket);
         socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
@@ -29,6 +37,10 @@ public class PreparationSocket
 
     private static void ReceiveCallBack(IAsyncResult AR)
     {
+        if (HelperProperties.Properties.token.IsCancellationRequested)
+        {
+            return;
+        }
         System.Net.Sockets.Socket socket = (System.Net.Sockets.Socket)AR.AsyncState;
 
         try

@@ -19,5 +19,7 @@ namespace DeviceCommander.HelperProperties
         }
 
         public static List<(Socket, string)> IncomingData { get; set; }=new List<(Socket, string)> { };
+
+        public static CancellationToken token { get; set; }
     }
 }

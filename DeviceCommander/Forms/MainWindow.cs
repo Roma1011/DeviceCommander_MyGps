@@ -19,7 +19,6 @@ namespace DeviceCommander
         private System.Windows.Forms.Timer timer;
         //=====================================================================
         static CancellationTokenSource cts = new CancellationTokenSource();
-        CancellationToken token = cts.Token;
         //=====================================================================
         public MainWindow()
         {
@@ -29,6 +28,7 @@ namespace DeviceCommander
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 50; // set interval to 5 seconds
             timer.Tick += Timer_Tick2;
+            HelperProperties.Properties.token = cts.Token;
         }
         void AddForm(Form frm, Button btn)
         {
@@ -86,7 +86,7 @@ namespace DeviceCommander
 
         private async void StartButton_Click(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(async () => PreparationSocket.CreateListenerSocket(DataGrid, token));
+            Task.Factory.StartNew(async () => PreparationSocket.CreateListenerSocket(DataGrid));
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             StopButton.Enabled = true;
             StartButton.Enabled = false;
