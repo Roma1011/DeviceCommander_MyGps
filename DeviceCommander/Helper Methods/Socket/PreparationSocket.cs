@@ -61,6 +61,7 @@ public class PreparationSocket
                     if (!string.IsNullOrEmpty(result[0]))
                         ReflectionGridData.AddData(dgr, result);
 
+                    HelperProperties.Properties.IncomingData.Add((socket, result[0]));
                     socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
                 }
 

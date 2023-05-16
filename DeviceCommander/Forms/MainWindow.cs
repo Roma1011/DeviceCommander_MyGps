@@ -26,7 +26,7 @@ namespace DeviceCommander
             CommandPanel.Width = 0;
             StopButton.Enabled=false;
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 50; // set interval to 5 seconds
+            timer.Interval = 5000; // set interval to 5 seconds
             timer.Tick += Timer_Tick2;
             HelperProperties.Properties.token = cts.Token;
         }
@@ -87,6 +87,7 @@ namespace DeviceCommander
         private async void StartButton_Click(object sender, EventArgs e)
         {
             Task.Factory.StartNew(async () => PreparationSocket.CreateListenerSocket(DataGrid));
+            timer.Start();
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             StopButton.Enabled = true;
             StartButton.Enabled = false;
@@ -95,7 +96,7 @@ namespace DeviceCommander
         {
             cts.Cancel();
 
-            //timer.Stop();
+            timer.Stop();
             ClearSocketData.CloseConnection();
 
             StartButton.Enabled = true;
@@ -146,7 +147,7 @@ namespace DeviceCommander
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
-            //await ConnectionCheck.IsConnected(DataGrid);
+            await ConnectionCheck.IsConnected(DataGrid);
         }
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
