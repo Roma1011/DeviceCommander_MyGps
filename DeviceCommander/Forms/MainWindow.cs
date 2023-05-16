@@ -2,9 +2,14 @@ using DeviceCommander.Helper_Methods.Socket;
 using DeviceCommander.Services.ButtonServices;
 using DeviceCommander.Services.DataGridServices;
 using DeviceCommander.Services.MouseService;
+using ListeningIMEI;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using Timer = System.Threading.Timer;
 
 namespace DeviceCommander
@@ -154,11 +159,177 @@ namespace DeviceCommander
   
 
         }
-
-        private void SendButton_Click(object sender, EventArgs e)
+        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
         {
 
         }
+        private void RestartRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            IntervalTextBox.Hide();
+            Panel_IP_PORT.Hide();
+            K_SPanel.Hide();
+            PanelManagment.Hide();
+        }
+        private void SetIntervalRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            IntervalTextBox.Show();
+            Panel_IP_PORT.Hide();
+            PanelManagment.Hide();
+            K_SPanel.Hide();
+        }
+        private void IP_PortRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            IntervalTextBox.Hide();
+            PanelManagment.Hide();
+            K_SPanel.Hide();
+            Panel_IP_PORT.Show();
+        }
+        private void DeviceManagmentRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            IntervalTextBox.Hide();
+            Panel_IP_PORT.Hide();
+            PanelManagment.Show();
+            K_SPanel.Show();
+        }
+
+        private async void SendButton_Click(object sender, EventArgs e)
+        {
+            DateTime ntp = NtpDateclass.GetNetworkTime();
+            var utcTime1 = DateTime.SpecifyKind(ntp, DateTimeKind.Utc);
+            DateTimeOffset utcTime2 = utcTime1;
+            var unixDate = utcTime2.ToUnixTimeSeconds();
+            var dateToHex = unixDate.ToString("X8");
+            StringBuilder stringBuilder = new StringBuilder("cmd_");
+            stringBuilder.Append(dateToHex);
+
+            if (DataGrid.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = DataGrid.SelectedRows[0];
+                string selectedImei = selectedRow.Cells["Imei"].Value.ToString();
+                if (RestartRadio.Checked)
+                {
+                    stringBuilder.Append("_restart");
+                    string command = stringBuilder.ToString();
+                    bool restartResult=await DeviceCommander(selectedImei, command);
+                }
+                if (SetIntervalRadio.Checked)
+                {
+                    stringBuilder.Append($"_setspeed {IntervalTextBox.Text}");
+                    string command = stringBuilder.ToString();
+                    bool restartResult = await DeviceCommander(selectedImei, command);
+                }
+                if (IP_PortRadio.Checked)
+                {
+                    stringBuilder.Append($"_setipports {Primary.Text}:{Primary_Port.Text}/{Spare.Text}:{Spare_Port.Text}");
+                    string command = stringBuilder.ToString();
+                    bool restartResult = await DeviceCommander(selectedImei, command);
+                }
+                if (DeviceManagmentRadio.Checked)
+                {
+                    bool k1Checked = K1Checkbox.Checked;
+                    bool k2Checked = K2CheckBox.Checked;
+                    bool k3Checked = K3Checkbox.Checked;
+                    if (k1Checked)
+                    {
+                        if ((!k2Checked && !k3Checked) || (k2Checked && !k3Checked) || (!k2Checked && k3Checked))
+                        {
+                            ExecuteCode(k1Checked, k2Checked, k3Checked);
+                        }
+                    }
+                    else if (k2Checked)
+                    {
+                        if ((!k1Checked && !k3Checked) || (k1Checked && !k3Checked) || (!k1Checked && k3Checked))
+                        {
+                            ExecuteCode(k1Checked, k2Checked, k3Checked);
+                        }
+                    }
+                    else if (k3Checked)
+                    {
+                        if ((!k1Checked && !k2Checked) || (k1Checked && !k2Checked) || (!k1Checked && k2Checked))
+                        {
+                            ExecuteCode(k1Checked, k2Checked, k3Checked);
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private async Task<bool> DeviceCommander(string identificationImei,string command)
+        {
+            var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(item => item.Item2 == identificationImei).Item1;
+            if (selectedItem != default)
+            {
+                selectedItem.Send(Encoding.UTF8.GetBytes(command));
+                return true;
+            }
+            return false;
+        }
+        void ExecuteCode(bool k1, bool k2, bool k3)
+        {
+            if (TurnOffRadio.Checked)
+            {
+                // Code for TurnOffRadio.Checked
+                if (k1)
+                {
+                    // Code for k1Checked
+                }
+                else if (k2)
+                {
+                    // Code for k2Checked
+                }
+                else if (k3)
+                {
+                    // Code for k3Checked
+                }
+            }
+            if (TurnOnRadio.Checked)
+            {
+                // Code for TurnOnRadio.Checked
+                if (k1)
+                {
+                    // Code for k1Checked
+                }
+                else if (k2)
+                {
+                    // Code for k2Checked
+                }
+                else if (k3)
+                {
+                    // Code for k3Checked
+                }
+            }
+            if (ResetShedule.Checked)
+            {
+                // Code for ResetShedule.Checked
+                if (k1)
+                {
+                    // Code for k1Checked
+                }
+                else if (k2)
+                {
+                    // Code for k2Checked
+                }
+                else if (k3)
+                {
+                    // Code for k3Checked
+                }
+            }
+        }
+        //private async Task<bool> ChangeIP(string identificationImei, string command)
+        //{
+        //    var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(item => item.Item2 == identificationImei).Item1;
+        //    if (selectedItem != default)
+        //    {
+        //        selectedItem.Send(Encoding.UTF8.GetBytes(command));
+        //        return true;
+        //    }
+        //    return false;
+        //}
     }
 
 }

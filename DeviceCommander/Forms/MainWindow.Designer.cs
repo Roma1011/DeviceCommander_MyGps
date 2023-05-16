@@ -53,7 +53,30 @@
             this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SendButton = new System.Windows.Forms.Button();
-            this.DeviceNameInfo = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.PanelManagment = new System.Windows.Forms.Panel();
+            this.ResetShedule = new System.Windows.Forms.RadioButton();
+            this.TurnOnRadio = new System.Windows.Forms.RadioButton();
+            this.TurnOffRadio = new System.Windows.Forms.RadioButton();
+            this.Panel = new System.Windows.Forms.Panel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.K_SPanel = new System.Windows.Forms.Panel();
+            this.K3Checkbox = new System.Windows.Forms.CheckBox();
+            this.K2CheckBox = new System.Windows.Forms.CheckBox();
+            this.K1Checkbox = new System.Windows.Forms.CheckBox();
+            this.DeviceManagmentRadio = new System.Windows.Forms.RadioButton();
+            this.Panel_IP_PORT = new System.Windows.Forms.Panel();
+            this.Spare_Port = new System.Windows.Forms.TextBox();
+            this.Primary_Port = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Spare = new System.Windows.Forms.TextBox();
+            this.Primary = new System.Windows.Forms.TextBox();
+            this.IntervalTextBox = new System.Windows.Forms.TextBox();
+            this.IP_PortRadio = new System.Windows.Forms.RadioButton();
+            this.SetIntervalRadio = new System.Windows.Forms.RadioButton();
+            this.RestartRadio = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PingButton = new System.Windows.Forms.Button();
             this.DisconnectButton = new System.Windows.Forms.Button();
@@ -68,6 +91,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.CommandPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.PanelManagment.SuspendLayout();
+            this.Panel.SuspendLayout();
+            this.K_SPanel.SuspendLayout();
+            this.Panel_IP_PORT.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -349,19 +377,15 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.SendButton, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.DeviceNameInfo, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 107);
+            this.tableLayoutPanel1.Controls.Add(this.SendButton, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(-1, 93);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.85431F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.1457F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 463);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(199, 537);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // SendButton
@@ -370,27 +394,265 @@
             this.SendButton.FlatAppearance.BorderSize = 0;
             this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SendButton.Image = ((System.Drawing.Image)(resources.GetObject("SendButton.Image")));
-            this.SendButton.Location = new System.Drawing.Point(3, 397);
+            this.SendButton.Location = new System.Drawing.Point(3, 472);
             this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(194, 63);
+            this.SendButton.Size = new System.Drawing.Size(193, 62);
             this.SendButton.TabIndex = 3;
             this.SendButton.Text = "Send";
             this.SendButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.SendButton.UseVisualStyleBackColor = true;
             this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
-            // DeviceNameInfo
+            // panel1
             // 
-            this.DeviceNameInfo.BackColor = System.Drawing.Color.White;
-            this.DeviceNameInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.DeviceNameInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceNameInfo.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.DeviceNameInfo.Location = new System.Drawing.Point(3, 3);
-            this.DeviceNameInfo.Name = "DeviceNameInfo";
-            this.DeviceNameInfo.ReadOnly = true;
-            this.DeviceNameInfo.Size = new System.Drawing.Size(194, 27);
-            this.DeviceNameInfo.TabIndex = 0;
-            this.DeviceNameInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.panel1.Controls.Add(this.PanelManagment);
+            this.panel1.Controls.Add(this.Panel);
+            this.panel1.Controls.Add(this.K_SPanel);
+            this.panel1.Controls.Add(this.DeviceManagmentRadio);
+            this.panel1.Controls.Add(this.Panel_IP_PORT);
+            this.panel1.Controls.Add(this.IntervalTextBox);
+            this.panel1.Controls.Add(this.IP_PortRadio);
+            this.panel1.Controls.Add(this.SetIntervalRadio);
+            this.panel1.Controls.Add(this.RestartRadio);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(193, 322);
+            this.panel1.TabIndex = 4;
+            // 
+            // PanelManagment
+            // 
+            this.PanelManagment.Controls.Add(this.ResetShedule);
+            this.PanelManagment.Controls.Add(this.TurnOnRadio);
+            this.PanelManagment.Controls.Add(this.TurnOffRadio);
+            this.PanelManagment.Location = new System.Drawing.Point(4, 145);
+            this.PanelManagment.Name = "PanelManagment";
+            this.PanelManagment.Size = new System.Drawing.Size(186, 132);
+            this.PanelManagment.TabIndex = 6;
+            this.PanelManagment.Visible = false;
+            // 
+            // ResetShedule
+            // 
+            this.ResetShedule.AutoSize = true;
+            this.ResetShedule.Location = new System.Drawing.Point(4, 78);
+            this.ResetShedule.Name = "ResetShedule";
+            this.ResetShedule.Size = new System.Drawing.Size(158, 27);
+            this.ResetShedule.TabIndex = 7;
+            this.ResetShedule.TabStop = true;
+            this.ResetShedule.Text = "Back on schedule";
+            this.ResetShedule.UseVisualStyleBackColor = true;
+            // 
+            // TurnOnRadio
+            // 
+            this.TurnOnRadio.AutoSize = true;
+            this.TurnOnRadio.Location = new System.Drawing.Point(4, 45);
+            this.TurnOnRadio.Name = "TurnOnRadio";
+            this.TurnOnRadio.Size = new System.Drawing.Size(86, 27);
+            this.TurnOnRadio.TabIndex = 6;
+            this.TurnOnRadio.TabStop = true;
+            this.TurnOnRadio.Text = "Turn on";
+            this.TurnOnRadio.UseVisualStyleBackColor = true;
+            // 
+            // TurnOffRadio
+            // 
+            this.TurnOffRadio.AutoSize = true;
+            this.TurnOffRadio.Location = new System.Drawing.Point(4, 12);
+            this.TurnOffRadio.Name = "TurnOffRadio";
+            this.TurnOffRadio.Size = new System.Drawing.Size(94, 27);
+            this.TurnOffRadio.TabIndex = 3;
+            this.TurnOffRadio.TabStop = true;
+            this.TurnOffRadio.Text = "Turn off";
+            this.TurnOffRadio.UseVisualStyleBackColor = true;
+            // 
+            // Panel
+            // 
+            this.Panel.Controls.Add(this.radioButton2);
+            this.Panel.Controls.Add(this.radioButton1);
+            this.Panel.Location = new System.Drawing.Point(0, 328);
+            this.Panel.Name = "Panel";
+            this.Panel.Size = new System.Drawing.Size(186, 132);
+            this.Panel.TabIndex = 6;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(8, 52);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(97, 27);
+            this.radioButton2.TabIndex = 3;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "IP/PORT";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(8, 13);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(88, 27);
+            this.radioButton1.TabIndex = 1;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Restart";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // K_SPanel
+            // 
+            this.K_SPanel.Controls.Add(this.K3Checkbox);
+            this.K_SPanel.Controls.Add(this.K2CheckBox);
+            this.K_SPanel.Controls.Add(this.K1Checkbox);
+            this.K_SPanel.Location = new System.Drawing.Point(7, 99);
+            this.K_SPanel.Name = "K_SPanel";
+            this.K_SPanel.Size = new System.Drawing.Size(180, 40);
+            this.K_SPanel.TabIndex = 8;
+            this.K_SPanel.Visible = false;
+            // 
+            // K3Checkbox
+            // 
+            this.K3Checkbox.AutoSize = true;
+            this.K3Checkbox.Location = new System.Drawing.Point(129, 6);
+            this.K3Checkbox.Name = "K3Checkbox";
+            this.K3Checkbox.Size = new System.Drawing.Size(49, 27);
+            this.K3Checkbox.TabIndex = 8;
+            this.K3Checkbox.Text = "K3";
+            this.K3Checkbox.UseVisualStyleBackColor = true;
+            // 
+            // K2CheckBox
+            // 
+            this.K2CheckBox.AutoSize = true;
+            this.K2CheckBox.Location = new System.Drawing.Point(65, 6);
+            this.K2CheckBox.Name = "K2CheckBox";
+            this.K2CheckBox.Size = new System.Drawing.Size(49, 27);
+            this.K2CheckBox.TabIndex = 7;
+            this.K2CheckBox.Text = "K2";
+            this.K2CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // K1Checkbox
+            // 
+            this.K1Checkbox.AutoSize = true;
+            this.K1Checkbox.Location = new System.Drawing.Point(3, 6);
+            this.K1Checkbox.Name = "K1Checkbox";
+            this.K1Checkbox.Size = new System.Drawing.Size(49, 27);
+            this.K1Checkbox.TabIndex = 6;
+            this.K1Checkbox.Text = "K1";
+            this.K1Checkbox.UseVisualStyleBackColor = true;
+            // 
+            // DeviceManagmentRadio
+            // 
+            this.DeviceManagmentRadio.AutoSize = true;
+            this.DeviceManagmentRadio.Location = new System.Drawing.Point(4, 67);
+            this.DeviceManagmentRadio.Name = "DeviceManagmentRadio";
+            this.DeviceManagmentRadio.Size = new System.Drawing.Size(171, 27);
+            this.DeviceManagmentRadio.TabIndex = 5;
+            this.DeviceManagmentRadio.TabStop = true;
+            this.DeviceManagmentRadio.Text = "Device Managment";
+            this.DeviceManagmentRadio.UseVisualStyleBackColor = true;
+            this.DeviceManagmentRadio.CheckedChanged += new System.EventHandler(this.DeviceManagmentRadio_CheckedChanged);
+            // 
+            // Panel_IP_PORT
+            // 
+            this.Panel_IP_PORT.Controls.Add(this.Spare_Port);
+            this.Panel_IP_PORT.Controls.Add(this.Primary_Port);
+            this.Panel_IP_PORT.Controls.Add(this.label2);
+            this.Panel_IP_PORT.Controls.Add(this.label1);
+            this.Panel_IP_PORT.Controls.Add(this.Spare);
+            this.Panel_IP_PORT.Controls.Add(this.Primary);
+            this.Panel_IP_PORT.Location = new System.Drawing.Point(4, 145);
+            this.Panel_IP_PORT.Name = "Panel_IP_PORT";
+            this.Panel_IP_PORT.Size = new System.Drawing.Size(186, 132);
+            this.Panel_IP_PORT.TabIndex = 4;
+            this.Panel_IP_PORT.Visible = false;
+            // 
+            // Spare_Port
+            // 
+            this.Spare_Port.Location = new System.Drawing.Point(127, 85);
+            this.Spare_Port.Name = "Spare_Port";
+            this.Spare_Port.Size = new System.Drawing.Size(56, 30);
+            this.Spare_Port.TabIndex = 5;
+            this.Spare_Port.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Primary_Port
+            // 
+            this.Primary_Port.Location = new System.Drawing.Point(127, 26);
+            this.Primary_Port.Name = "Primary_Port";
+            this.Primary_Port.Size = new System.Drawing.Size(56, 30);
+            this.Primary_Port.TabIndex = 4;
+            this.Primary_Port.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(27, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 23);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Spare IP/PORT";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(145, 23);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Primary IP/PORT";
+            // 
+            // Spare
+            // 
+            this.Spare.Location = new System.Drawing.Point(3, 85);
+            this.Spare.Name = "Spare";
+            this.Spare.Size = new System.Drawing.Size(123, 30);
+            this.Spare.TabIndex = 1;
+            // 
+            // Primary
+            // 
+            this.Primary.Location = new System.Drawing.Point(3, 26);
+            this.Primary.Name = "Primary";
+            this.Primary.Size = new System.Drawing.Size(123, 30);
+            this.Primary.TabIndex = 0;
+            // 
+            // IntervalTextBox
+            // 
+            this.IntervalTextBox.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.IntervalTextBox.Location = new System.Drawing.Point(133, 27);
+            this.IntervalTextBox.Name = "IntervalTextBox";
+            this.IntervalTextBox.Size = new System.Drawing.Size(60, 23);
+            this.IntervalTextBox.TabIndex = 3;
+            this.IntervalTextBox.Visible = false;
+            // 
+            // IP_PortRadio
+            // 
+            this.IP_PortRadio.AutoSize = true;
+            this.IP_PortRadio.Location = new System.Drawing.Point(4, 45);
+            this.IP_PortRadio.Name = "IP_PortRadio";
+            this.IP_PortRadio.Size = new System.Drawing.Size(97, 27);
+            this.IP_PortRadio.TabIndex = 2;
+            this.IP_PortRadio.TabStop = true;
+            this.IP_PortRadio.Text = "IP/PORT";
+            this.IP_PortRadio.UseVisualStyleBackColor = true;
+            this.IP_PortRadio.CheckedChanged += new System.EventHandler(this.IP_PortRadio_CheckedChanged);
+            // 
+            // SetIntervalRadio
+            // 
+            this.SetIntervalRadio.AutoSize = true;
+            this.SetIntervalRadio.Location = new System.Drawing.Point(4, 24);
+            this.SetIntervalRadio.Name = "SetIntervalRadio";
+            this.SetIntervalRadio.Size = new System.Drawing.Size(126, 27);
+            this.SetIntervalRadio.TabIndex = 1;
+            this.SetIntervalRadio.TabStop = true;
+            this.SetIntervalRadio.Text = "Set Interval";
+            this.SetIntervalRadio.UseVisualStyleBackColor = true;
+            this.SetIntervalRadio.CheckedChanged += new System.EventHandler(this.SetIntervalRadio_CheckedChanged);
+            // 
+            // RestartRadio
+            // 
+            this.RestartRadio.AutoSize = true;
+            this.RestartRadio.Location = new System.Drawing.Point(4, 3);
+            this.RestartRadio.Name = "RestartRadio";
+            this.RestartRadio.Size = new System.Drawing.Size(88, 27);
+            this.RestartRadio.TabIndex = 0;
+            this.RestartRadio.TabStop = true;
+            this.RestartRadio.Text = "Restart";
+            this.RestartRadio.UseVisualStyleBackColor = true;
+            this.RestartRadio.CheckedChanged += new System.EventHandler(this.RestartRadio_CheckedChanged);
             // 
             // panel2
             // 
@@ -466,7 +728,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.CommandPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.PanelManagment.ResumeLayout(false);
+            this.PanelManagment.PerformLayout();
+            this.Panel.ResumeLayout(false);
+            this.Panel.PerformLayout();
+            this.K_SPanel.ResumeLayout(false);
+            this.K_SPanel.PerformLayout();
+            this.Panel_IP_PORT.ResumeLayout(false);
+            this.Panel_IP_PORT.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -496,12 +767,35 @@
         private Button DisconnectButton;
         private Button PingButton;
         private TableLayoutPanel tableLayoutPanel1;
-        private TextBox DeviceNameInfo;
-        private Button SendButton;
         private System.Windows.Forms.Timer Timer;
         private Panel TablePanel;
         private DataGridView DataGrid;
         private DataGridViewTextBoxColumn Imei;
         private DataGridViewTextBoxColumn MobNumber;
+        private Button SendButton;
+        private Panel panel1;
+        private RadioButton IP_PortRadio;
+        private RadioButton SetIntervalRadio;
+        private RadioButton RestartRadio;
+        private TextBox IntervalTextBox;
+        private Panel Panel_IP_PORT;
+        private Label label1;
+        private TextBox Spare;
+        private TextBox Primary;
+        private Label label2;
+        private TextBox Spare_Port;
+        private TextBox Primary_Port;
+        private RadioButton DeviceManagmentRadio;
+        private CheckBox K2CheckBox;
+        private CheckBox K1Checkbox;
+        private Panel K_SPanel;
+        private Panel Panel;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private Panel PanelManagment;
+        private RadioButton TurnOnRadio;
+        private RadioButton TurnOffRadio;
+        private CheckBox K3Checkbox;
+        private RadioButton ResetShedule;
     }
 }
