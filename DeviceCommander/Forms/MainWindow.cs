@@ -210,45 +210,34 @@ namespace DeviceCommander
                 {
                     stringBuilder.Append("_restart");
                     string command = stringBuilder.ToString();
-                    bool restartResult=await DeviceCommander(selectedImei, command);
+                    bool comandResult=await DeviceCommander(selectedImei, command);
                 }
                 if (SetIntervalRadio.Checked)
                 {
                     stringBuilder.Append($"_setspeed {IntervalTextBox.Text}");
                     string command = stringBuilder.ToString();
-                    bool restartResult = await DeviceCommander(selectedImei, command);
+                    bool comandResult = await DeviceCommander(selectedImei, command);
                 }
                 if (IP_PortRadio.Checked)
                 {
                     stringBuilder.Append($"_setipports {Primary.Text}:{Primary_Port.Text}/{Spare.Text}:{Spare_Port.Text}");
                     string command = stringBuilder.ToString();
-                    bool restartResult = await DeviceCommander(selectedImei, command);
+                    bool comandResult = await DeviceCommander(selectedImei, command);
                 }
                 if (DeviceManagmentRadio.Checked)
                 {
                     bool k1Checked = K1Checkbox.Checked;
                     bool k2Checked = K2CheckBox.Checked;
                     bool k3Checked = K3Checkbox.Checked;
-                    if (k1Checked)
+
+                    if ((k1Checked && !k2Checked && !k3Checked) || (!k1Checked && k2Checked && !k3Checked) || (!k1Checked && !k2Checked && k3Checked) ||
+                        (k1Checked && k2Checked && !k3Checked) || (k1Checked && !k2Checked && k3Checked) || (k1Checked && k2Checked && k3Checked))
                     {
-                        if ((!k2Checked && !k3Checked) || (k2Checked && !k3Checked) || (!k2Checked && k3Checked))
-                        {
-                            ExecuteCode(k1Checked, k2Checked, k3Checked);
-                        }
-                    }
-                    else if (k2Checked)
-                    {
-                        if ((!k1Checked && !k3Checked) || (k1Checked && !k3Checked) || (!k1Checked && k3Checked))
-                        {
-                            ExecuteCode(k1Checked, k2Checked, k3Checked);
-                        }
-                    }
-                    else if (k3Checked)
-                    {
-                        if ((!k1Checked && !k2Checked) || (k1Checked && !k2Checked) || (!k1Checked && k2Checked))
-                        {
-                            ExecuteCode(k1Checked, k2Checked, k3Checked);
-                        }
+                        int[,]checkedResult=ExecuteCode(k1Checked, k2Checked, k3Checked);
+
+                        stringBuilder.Append($"_Kontactors {checkedResult[0, 0]}{checkedResult[1, 0]}{checkedResult[2, 0]}3");
+                        string command = stringBuilder.ToString();
+                        bool comandResult = await DeviceCommander(selectedImei, command);
                     }
                 }
 
@@ -269,67 +258,29 @@ namespace DeviceCommander
             }
             return false;
         }
-        void ExecuteCode(bool k1, bool k2, bool k3)
+        int[,] ExecuteCode(bool k1, bool k2, bool k3)
         {
+            int[,] whichK_IsChecked= new int[3,4];
             if (TurnOffRadio.Checked)
             {
-                // Code for TurnOffRadio.Checked
-                if (k1)
-                {
-                    // Code for k1Checked
-                }
-                else if (k2)
-                {
-                    // Code for k2Checked
-                }
-                else if (k3)
-                {
-                    // Code for k3Checked
-                }
+                whichK_IsChecked[0, 0] = k1 ? 0 : 3;
+                whichK_IsChecked[1, 0]= k2 ? 0 : 3;
+                whichK_IsChecked[2, 0] = k3 ? 0 : 3;
             }
             if (TurnOnRadio.Checked)
             {
-                // Code for TurnOnRadio.Checked
-                if (k1)
-                {
-                    // Code for k1Checked
-                }
-                else if (k2)
-                {
-                    // Code for k2Checked
-                }
-                else if (k3)
-                {
-                    // Code for k3Checked
-                }
+                whichK_IsChecked[0, 0] = k1 ? 1 : 3;
+                whichK_IsChecked[1, 0] = k2 ? 1 : 3;
+                whichK_IsChecked[2, 0] = k3 ? 1 : 3;
             }
             if (ResetShedule.Checked)
             {
-                // Code for ResetShedule.Checked
-                if (k1)
-                {
-                    // Code for k1Checked
-                }
-                else if (k2)
-                {
-                    // Code for k2Checked
-                }
-                else if (k3)
-                {
-                    // Code for k3Checked
-                }
+                whichK_IsChecked[0, 0] = k1 ? 2 : 3;
+                whichK_IsChecked[1, 0] = k2 ? 2 : 3;
+                whichK_IsChecked[2, 0] = k3 ? 2 : 3;
             }
+            return whichK_IsChecked;
         }
-        //private async Task<bool> ChangeIP(string identificationImei, string command)
-        //{
-        //    var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(item => item.Item2 == identificationImei).Item1;
-        //    if (selectedItem != default)
-        //    {
-        //        selectedItem.Send(Encoding.UTF8.GetBytes(command));
-        //        return true;
-        //    }
-        //    return false;
-        //}
     }
 
 }
