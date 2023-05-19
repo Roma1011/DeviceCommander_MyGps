@@ -244,15 +244,23 @@ namespace DeviceCommander
 
         private async Task<bool> DeviceCommander(List<string> identificationImei,string command)
         {
-            foreach(var item in identificationImei)
+            try
             {
-                var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item2 == item).Item1;
-                if (selectedItem != default)
+                foreach (var item in identificationImei)
                 {
-                    selectedItem.Send(Encoding.UTF8.GetBytes(command));
+                    var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item2 == item).Item1;
+                    if (selectedItem != default)
+                    {
+                        selectedItem.Send(Encoding.UTF8.GetBytes(command));
+                    }
                 }
             }
-            return false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+           return true;
         }
         int[,] ExecuteCode(bool k1, bool k2, bool k3)
         {
