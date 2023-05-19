@@ -13,14 +13,14 @@ namespace DeviceCommander.Helper_Methods.Socket
         {
             foreach (var item in HelperProperties.Properties.IncomingData)
             {
-                item.Item1.Close();
+                item.Item1.Dispose();
             }
             foreach (var item in HelperProperties.Properties.IncomingSockets)
             {
-                item.Close();
+                item.Dispose();
             }
-            HelperProperties.Properties.IncomingData=new List<(TcpClient, string)>();
-            HelperProperties.Properties.IncomingSockets= new List<TcpClient>();
+            HelperProperties.Properties.IncomingData=new List<(System.Net.Sockets.Socket, string)>();
+            HelperProperties.Properties.IncomingSockets= new List<System.Net.Sockets.Socket>();
         }
     }
 }

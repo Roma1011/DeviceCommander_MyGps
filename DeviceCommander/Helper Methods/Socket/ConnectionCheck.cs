@@ -13,16 +13,16 @@ namespace DeviceCommander.Helper_Methods.Socket
     {
         public static async Task IsConnected(DataGridView dataGridView)
         {
-            List<TcpClient> connectedSockets = new List<TcpClient>();
-            List<(TcpClient, string)> incomingDataConnected = new List<(TcpClient, string)>();
-            List<TcpClient> incomingSocketsCopy = new List<TcpClient>(HelperProperties.Properties.IncomingSockets);
-            List<(TcpClient, string)> incomingDataCopy = new List<(TcpClient, string)>(HelperProperties.Properties.IncomingData);
+            List<System.Net.Sockets.Socket> connectedSockets = new List<System.Net.Sockets.Socket>();
+            List<(System.Net.Sockets.Socket, string)> incomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
+            List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
+            List<(System.Net.Sockets.Socket, string)> incomingDataCopy = new List<(System.Net.Sockets.Socket, string)>(HelperProperties.Properties.IncomingData);
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
             foreach (var item in incomingSocketsCopy)
             {
-                bool connected = item.Connected && !((item.Client.Poll(1000, SelectMode.SelectRead) && (item.Available == 0)));
-                if (connected)
+                bool connected =await SocketConnected(item);
+                if (!connected)
                 {
                     connectedSockets.Add(item);
                 }
@@ -30,26 +30,22 @@ namespace DeviceCommander.Helper_Methods.Socket
 
             HelperProperties.Properties.IncomingSockets = connectedSockets;
 
-
-            // Loop through incoming data and check if the socket is still connected
             foreach (var item in incomingDataCopy)
             {
-                bool connected = item.Item1.Connected && !((item.Item1.Client.Poll(1000, SelectMode.SelectRead) && (item.Item1.Available == 0)));
+                bool connected =await SocketConnected(item.Item1);
                 if (connected)
                 {
                     incomingDataConnected.Add((item.Item1, item.Item2));
                 }
                 else
                 {
-                    // If the socket is not connected, remove the corresponding row from the DataGridView
-                    string[] reciveImei = await StartPingParser.Parse(item.Item2);
                     rowsToRemove.Clear(); // Clear the list before using it again
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
                         bool match = true;
-                        for (int i = 0; i < reciveImei.Length; i++)
+                        for (int i = 0; i < 1; i++)
                         {
-                            if (row.Cells[i].Value == null || row.Cells[i].Value.ToString() != reciveImei[i])
+                            if (row.Cells[i].Value == null || row.Cells[i].Value.ToString() != item.Item2.ToString())
                             {
                                 match = false;
                                 break;
@@ -75,7 +71,16 @@ namespace DeviceCommander.Helper_Methods.Socket
             }
             HelperProperties.Properties.IncomingData = incomingDataConnected;
         }
-
-
+        public static async Task<bool> SocketConnected(System.Net.Sockets.Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0);
+            if (part1 && part2)
+                return false;
+            else
+                return true;
+        }
     }
+
+   
 }

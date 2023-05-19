@@ -9,15 +9,23 @@ namespace DeviceCommander.Helper_Methods.Pars_Data
     public class StartPingParser
     {
         static string[] DeviceDataForDataGrid { get; set; } = new string[2];
-        public static async Task<string[]> Parse(string StartMessage)
+        public static string[] Parse(string StartMessage)
         {
-            if (StartMessage[0] != 'S')
-                return null;
+            try
+            {
+                if (StartMessage[0] != 'S')
+                    return null;
 
-            string[] parts = StartMessage.Split(';');
+                string[] parts = StartMessage.Split(';');
 
-            DeviceDataForDataGrid = new string[] { parts[1], parts[2] };
+                DeviceDataForDataGrid = new string[] { parts[1], parts[2] };
 
+                
+            }
+            catch (Exception e)
+            {
+              
+            }
             return DeviceDataForDataGrid;
         }
     }
