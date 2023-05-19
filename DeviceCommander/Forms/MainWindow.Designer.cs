@@ -38,6 +38,7 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchBar = new System.Windows.Forms.TextBox();
             this.AppLabelName = new System.Windows.Forms.Label();
+            this.HistoryButton = new System.Windows.Forms.Button();
             this.TLPnlMenu = new System.Windows.Forms.TableLayoutPanel();
             this.DeviceCommanderButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
@@ -46,10 +47,11 @@
             this.PnlNav = new System.Windows.Forms.Label();
             this.PnFill = new System.Windows.Forms.Panel();
             this.PnPage = new System.Windows.Forms.Panel();
-            this.TablePanel = new System.Windows.Forms.Panel();
             this.DataGrid = new System.Windows.Forms.DataGridView();
             this.Imei = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MobNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MobileNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HistoryPanel = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SendButton = new System.Windows.Forms.Button();
@@ -82,13 +84,18 @@
             this.DisconnectButton = new System.Windows.Forms.Button();
             this.ElipsePnl = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.TimerForHistory = new System.Windows.Forms.Timer(this.components);
+            this.Command = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Device = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TLPnl.SuspendLayout();
             this.PNLSearch.SuspendLayout();
             this.TLPnlMenu.SuspendLayout();
             this.PnFill.SuspendLayout();
             this.PnPage.SuspendLayout();
-            this.TablePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
+            this.HistoryPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.CommandPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -106,21 +113,22 @@
             this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
+            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.TLPnl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPnl.Controls.Add(this.CloseButton, 6, 0);
             this.TLPnl.Controls.Add(this.MinimizeButton, 5, 0);
             this.TLPnl.Controls.Add(this.PNLSearch, 3, 0);
             this.TLPnl.Controls.Add(this.AppLabelName, 2, 0);
+            this.TLPnl.Controls.Add(this.HistoryButton, 6, 1);
             this.TLPnl.Dock = System.Windows.Forms.DockStyle.Top;
             this.TLPnl.Location = new System.Drawing.Point(0, 0);
             this.TLPnl.Name = "TLPnl";
             this.TLPnl.RowCount = 2;
-            this.TLPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.TLPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.TLPnl.Size = new System.Drawing.Size(1387, 50);
+            this.TLPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.01205F));
+            this.TLPnl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.98795F));
+            this.TLPnl.Size = new System.Drawing.Size(1387, 83);
             this.TLPnl.TabIndex = 0;
             this.TLPnl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TLPnl_MouseDown);
             this.TLPnl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TLPnl_MouseMove);
@@ -132,9 +140,9 @@
             this.CloseButton.FlatAppearance.BorderSize = 0;
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseButton.Image = ((System.Drawing.Image)(resources.GetObject("CloseButton.Image")));
-            this.CloseButton.Location = new System.Drawing.Point(1339, 3);
+            this.CloseButton.Location = new System.Drawing.Point(1351, 3);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(45, 29);
+            this.CloseButton.Size = new System.Drawing.Size(33, 38);
             this.CloseButton.TabIndex = 0;
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
@@ -145,9 +153,9 @@
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("MinimizeButton.Image")));
-            this.MinimizeButton.Location = new System.Drawing.Point(1289, 3);
+            this.MinimizeButton.Location = new System.Drawing.Point(1314, 3);
             this.MinimizeButton.Name = "MinimizeButton";
-            this.MinimizeButton.Size = new System.Drawing.Size(44, 29);
+            this.MinimizeButton.Size = new System.Drawing.Size(31, 38);
             this.MinimizeButton.TabIndex = 1;
             this.MinimizeButton.UseVisualStyleBackColor = true;
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
@@ -212,6 +220,19 @@
             this.AppLabelName.Text = "DeviceCommander";
             this.AppLabelName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // HistoryButton
+            // 
+            this.HistoryButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("HistoryButton.BackgroundImage")));
+            this.HistoryButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.HistoryButton.FlatAppearance.BorderSize = 0;
+            this.HistoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HistoryButton.Location = new System.Drawing.Point(1351, 47);
+            this.HistoryButton.Name = "HistoryButton";
+            this.HistoryButton.Size = new System.Drawing.Size(33, 33);
+            this.HistoryButton.TabIndex = 4;
+            this.HistoryButton.UseVisualStyleBackColor = true;
+            this.HistoryButton.Click += new System.EventHandler(this.HistoryButton_Click);
+            // 
             // TLPnlMenu
             // 
             this.TLPnlMenu.ColumnCount = 1;
@@ -220,7 +241,7 @@
             this.TLPnlMenu.Controls.Add(this.StartButton, 0, 0);
             this.TLPnlMenu.Controls.Add(this.StopButton, 0, 1);
             this.TLPnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TLPnlMenu.Location = new System.Drawing.Point(0, 50);
+            this.TLPnlMenu.Location = new System.Drawing.Point(0, 83);
             this.TLPnlMenu.Name = "TLPnlMenu";
             this.TLPnlMenu.RowCount = 3;
             this.TLPnlMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
@@ -229,7 +250,7 @@
             this.TLPnlMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPnlMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TLPnlMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TLPnlMenu.Size = new System.Drawing.Size(92, 650);
+            this.TLPnlMenu.Size = new System.Drawing.Size(92, 617);
             this.TLPnlMenu.TabIndex = 1;
             // 
             // DeviceCommanderButton
@@ -242,7 +263,7 @@
             this.DeviceCommanderButton.Image = ((System.Drawing.Image)(resources.GetObject("DeviceCommanderButton.Image")));
             this.DeviceCommanderButton.Location = new System.Drawing.Point(3, 183);
             this.DeviceCommanderButton.Name = "DeviceCommanderButton";
-            this.DeviceCommanderButton.Size = new System.Drawing.Size(86, 464);
+            this.DeviceCommanderButton.Size = new System.Drawing.Size(86, 431);
             this.DeviceCommanderButton.TabIndex = 2;
             this.DeviceCommanderButton.Text = "Command";
             this.DeviceCommanderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -306,31 +327,23 @@
             // 
             this.PnFill.Controls.Add(this.PnPage);
             this.PnFill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnFill.Location = new System.Drawing.Point(92, 50);
+            this.PnFill.Location = new System.Drawing.Point(92, 83);
             this.PnFill.Name = "PnFill";
-            this.PnFill.Padding = new System.Windows.Forms.Padding(0, 0, 20, 20);
-            this.PnFill.Size = new System.Drawing.Size(1295, 650);
+            this.PnFill.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
+            this.PnFill.Size = new System.Drawing.Size(1295, 617);
             this.PnFill.TabIndex = 4;
             // 
             // PnPage
             // 
             this.PnPage.BackColor = System.Drawing.Color.White;
-            this.PnPage.Controls.Add(this.TablePanel);
+            this.PnPage.Controls.Add(this.DataGrid);
+            this.PnPage.Controls.Add(this.HistoryPanel);
             this.PnPage.Controls.Add(this.CommandPanel);
             this.PnPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnPage.Location = new System.Drawing.Point(0, 0);
             this.PnPage.Name = "PnPage";
-            this.PnPage.Size = new System.Drawing.Size(1275, 630);
+            this.PnPage.Size = new System.Drawing.Size(1295, 597);
             this.PnPage.TabIndex = 0;
-            // 
-            // TablePanel
-            // 
-            this.TablePanel.Controls.Add(this.DataGrid);
-            this.TablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TablePanel.Location = new System.Drawing.Point(198, 0);
-            this.TablePanel.Name = "TablePanel";
-            this.TablePanel.Size = new System.Drawing.Size(1077, 630);
-            this.TablePanel.TabIndex = 1;
             // 
             // DataGrid
             // 
@@ -338,29 +351,51 @@
             this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Imei,
-            this.MobNumber});
+            this.MobileNumber});
             this.DataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGrid.Location = new System.Drawing.Point(0, 0);
-            this.DataGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.DataGrid.Location = new System.Drawing.Point(198, 0);
             this.DataGrid.Name = "DataGrid";
             this.DataGrid.RowTemplate.Height = 25;
-            this.DataGrid.Size = new System.Drawing.Size(1077, 630);
-            this.DataGrid.TabIndex = 0;
-            this.DataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellContentClick);
+            this.DataGrid.Size = new System.Drawing.Size(777, 597);
+            this.DataGrid.TabIndex = 2;
             // 
             // Imei
             // 
+            this.Imei.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Imei.HeaderText = "Imei";
             this.Imei.Name = "Imei";
-            this.Imei.ReadOnly = true;
-            this.Imei.Width = 625;
             // 
-            // MobNumber
+            // MobileNumber
             // 
-            this.MobNumber.HeaderText = "MobileNumber";
-            this.MobNumber.Name = "MobNumber";
-            this.MobNumber.ReadOnly = true;
-            this.MobNumber.Width = 625;
+            this.MobileNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.MobileNumber.HeaderText = "MobileNumber";
+            this.MobileNumber.Name = "MobileNumber";
+            // 
+            // HistoryPanel
+            // 
+            this.HistoryPanel.Controls.Add(this.dataGridView1);
+            this.HistoryPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.HistoryPanel.Location = new System.Drawing.Point(975, 0);
+            this.HistoryPanel.Name = "HistoryPanel";
+            this.HistoryPanel.Size = new System.Drawing.Size(320, 597);
+            this.HistoryPanel.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Command,
+            this.Device,
+            this.Status});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(320, 597);
+            this.dataGridView1.TabIndex = 0;
             // 
             // CommandPanel
             // 
@@ -370,7 +405,7 @@
             this.CommandPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.CommandPanel.Location = new System.Drawing.Point(0, 0);
             this.CommandPanel.Name = "CommandPanel";
-            this.CommandPanel.Size = new System.Drawing.Size(198, 630);
+            this.CommandPanel.Size = new System.Drawing.Size(198, 597);
             this.CommandPanel.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -385,7 +420,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 68F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(199, 537);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(199, 504);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // SendButton
@@ -394,7 +429,7 @@
             this.SendButton.FlatAppearance.BorderSize = 0;
             this.SendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SendButton.Image = ((System.Drawing.Image)(resources.GetObject("SendButton.Image")));
-            this.SendButton.Location = new System.Drawing.Point(3, 472);
+            this.SendButton.Location = new System.Drawing.Point(3, 439);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(193, 62);
             this.SendButton.TabIndex = 3;
@@ -701,6 +736,32 @@
             this.Timer.Interval = 500;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
+            // TimerForHistory
+            // 
+            this.TimerForHistory.Interval = 500;
+            this.TimerForHistory.Tick += new System.EventHandler(this.TimerForHistory_Tick);
+            // 
+            // Command
+            // 
+            this.Command.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Command.HeaderText = "Command";
+            this.Command.Name = "Command";
+            this.Command.ReadOnly = true;
+            // 
+            // Device
+            // 
+            this.Device.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Device.HeaderText = "Device";
+            this.Device.Name = "Device";
+            this.Device.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -724,8 +785,9 @@
             this.TLPnlMenu.ResumeLayout(false);
             this.PnFill.ResumeLayout(false);
             this.PnPage.ResumeLayout(false);
-            this.TablePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
+            this.HistoryPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.CommandPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -760,42 +822,48 @@
         private Button StopButton;
         private Label PnlNav;
         private Panel PnFill;
-        private Panel PnPage;
         private Bunifu.Framework.UI.BunifuElipse ElipsePnl;
-        private Panel CommandPanel;
-        private Panel panel2;
-        private Button DisconnectButton;
-        private Button PingButton;
-        private TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Timer Timer;
-        private Panel TablePanel;
-        private DataGridView DataGrid;
-        private DataGridViewTextBoxColumn Imei;
-        private DataGridViewTextBoxColumn MobNumber;
+        private Panel PnPage;
+        private Panel HistoryPanel;
+        private Panel CommandPanel;
+        private TableLayoutPanel tableLayoutPanel1;
         private Button SendButton;
         private Panel panel1;
-        private RadioButton IP_PortRadio;
-        private RadioButton SetIntervalRadio;
-        private RadioButton RestartRadio;
-        private TextBox IntervalTextBox;
-        private Panel Panel_IP_PORT;
-        private Label label1;
-        private TextBox Spare;
-        private TextBox Primary;
-        private Label label2;
-        private TextBox Spare_Port;
-        private TextBox Primary_Port;
-        private RadioButton DeviceManagmentRadio;
-        private CheckBox K2CheckBox;
-        private CheckBox K1Checkbox;
-        private Panel K_SPanel;
+        private Panel PanelManagment;
+        private RadioButton ResetShedule;
+        private RadioButton TurnOnRadio;
+        private RadioButton TurnOffRadio;
         private Panel Panel;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
-        private Panel PanelManagment;
-        private RadioButton TurnOnRadio;
-        private RadioButton TurnOffRadio;
+        private Panel K_SPanel;
         private CheckBox K3Checkbox;
-        private RadioButton ResetShedule;
+        private CheckBox K2CheckBox;
+        private CheckBox K1Checkbox;
+        private RadioButton DeviceManagmentRadio;
+        private Panel Panel_IP_PORT;
+        private TextBox Spare_Port;
+        private TextBox Primary_Port;
+        private Label label2;
+        private Label label1;
+        private TextBox Spare;
+        private TextBox Primary;
+        private TextBox IntervalTextBox;
+        private RadioButton IP_PortRadio;
+        private RadioButton SetIntervalRadio;
+        private RadioButton RestartRadio;
+        private Panel panel2;
+        private Button PingButton;
+        private Button DisconnectButton;
+        private DataGridView DataGrid;
+        private DataGridViewTextBoxColumn Imei;
+        private DataGridViewTextBoxColumn MobileNumber;
+        private Button HistoryButton;
+        private System.Windows.Forms.Timer TimerForHistory;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Command;
+        private DataGridViewTextBoxColumn Device;
+        private DataGridViewTextBoxColumn Status;
     }
 }

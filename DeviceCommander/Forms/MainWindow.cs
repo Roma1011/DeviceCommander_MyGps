@@ -20,6 +20,7 @@ namespace DeviceCommander
         {
             InitializeComponent();
             CommandPanel.Width = 0;
+            HistoryPanel.Width= 0;
             StopButton.Enabled=false;
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 5000; // set interval to 5 seconds
@@ -107,7 +108,10 @@ namespace DeviceCommander
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             Timer.Start();
         }
-
+        private void HistoryButton_Click(object sender, EventArgs e)
+        {
+            TimerForHistory.Start();
+        }
         private async void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -138,7 +142,22 @@ namespace DeviceCommander
             else
                 for (int i = 0; i < 10; i++)
                     CommandPanel.Width = CommandPanel.Width + 20;
+
             Timer.Stop();
+            
+        }
+        private void TimerForHistory_Tick(object sender, EventArgs e)
+        {
+            if(HistoryPanel.Width >= 320)
+                for (int i = 0; i < 10; i++)
+                HistoryPanel.Width = HistoryPanel.Width - 32;
+
+
+            else
+                for (int i = 0; i < 10; i++)
+                    HistoryPanel.Width = HistoryPanel.Width + 32;
+
+            TimerForHistory.Stop();
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
@@ -284,7 +303,7 @@ namespace DeviceCommander
                 whichK_IsChecked[2, 0] = k3 ? 2 : 3;
             }
             return whichK_IsChecked;
-        }
+        }        
     }
 
 }
