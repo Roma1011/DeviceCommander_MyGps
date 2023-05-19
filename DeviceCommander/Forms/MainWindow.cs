@@ -1,3 +1,6 @@
+using DeviceCommander.Data;
+using DeviceCommander.Data.Models;
+using DeviceCommander.Helper_Methods.Files;
 using DeviceCommander.Helper_Methods.Socket;
 using DeviceCommander.Services.ButtonServices;
 using DeviceCommander.Services.MouseService;
@@ -9,6 +12,7 @@ namespace DeviceCommander
 {
     public partial class MainWindow : Form
     {
+        Writer writer;
         private bool mouseDown;
         private Point lastMousePosition;
         //=====================================================================
@@ -26,6 +30,7 @@ namespace DeviceCommander
             timer.Interval = 5000; // set interval to 5 seconds
             timer.Tick += Timer_Tick2;
             HelperProperties.Properties.token = cts.Token;
+            writer= new Writer();
         }
         void AddForm(Form frm, Button btn)
         {
@@ -271,7 +276,10 @@ namespace DeviceCommander
                     if (selectedItem != default)
                     {
                         selectedItem.Send(Encoding.UTF8.GetBytes(command));
+                        HelperProperties.Properties.dataList.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "OK" });
                     }
+                    else
+                        HelperProperties.Properties.dataList.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
                 }
             }
             catch (Exception ex)
@@ -279,7 +287,8 @@ namespace DeviceCommander
                 MessageBox.Show(ex.Message);
                 return false;
             }
-           return true;
+            Task.Factory.StartNew(() => writer.InFile());
+            return true;
         }
         int[,] ExecuteCode(bool k1, bool k2, bool k3)
         {

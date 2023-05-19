@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeviceCommander.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -18,7 +19,7 @@ namespace DeviceCommander.HelperProperties
             set { incomingSockets = value; }
         }
         public static List<(Socket, string)> IncomingData { get; set; }=new List<(Socket, string)> { };
-
+        public static List<DeviceCommandModel> dataList = new List<DeviceCommandModel>();
         public static CancellationToken token { get; set; }
     }
 }
