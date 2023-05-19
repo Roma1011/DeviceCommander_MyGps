@@ -184,6 +184,7 @@ namespace DeviceCommander
 
         private async void SendButton_Click(object sender, EventArgs e)
         {
+            List<string>imeiList=new List<string>();
             DateTime ntp = NtpDateclass.GetNetworkTime();
             var utcTime1 = DateTime.SpecifyKind(ntp, DateTimeKind.Utc);
             DateTimeOffset utcTime2 = utcTime1;
@@ -194,25 +195,29 @@ namespace DeviceCommander
 
             if (DataGrid.SelectedRows.Count > 0)
             {
-                DataGridViewRow selectedRow = DataGrid.SelectedRows[0];
-                string selectedImei = selectedRow.Cells["Imei"].Value.ToString();
+                foreach (DataGridViewRow selectedRow in DataGrid.SelectedRows)
+                {
+                    string selectedImei = selectedRow.Cells["Imei"].Value.ToString();
+                    imeiList.Add(selectedImei);
+                }
+
                 if (RestartRadio.Checked)
                 {
                     stringBuilder.Append("_restart");
                     string command = stringBuilder.ToString();
-                    bool comandResult=await DeviceCommander(selectedImei, command);
+                    bool comandResult = await DeviceCommander(imeiList, command);
                 }
                 if (SetIntervalRadio.Checked)
                 {
                     stringBuilder.Append($"_setspeed {IntervalTextBox.Text}");
                     string command = stringBuilder.ToString();
-                    bool comandResult = await DeviceCommander(selectedImei, command);
+                    bool comandResult = await DeviceCommander(imeiList, command);
                 }
                 if (IP_PortRadio.Checked)
                 {
                     stringBuilder.Append($"_setipports {Primary.Text}:{Primary_Port.Text}/{Spare.Text}:{Spare_Port.Text}");
                     string command = stringBuilder.ToString();
-                    bool comandResult = await DeviceCommander(selectedImei, command);
+                    bool comandResult = await DeviceCommander(imeiList, command);
                 }
                 if (DeviceManagmentRadio.Checked)
                 {
@@ -223,14 +228,13 @@ namespace DeviceCommander
                     if ((k1Checked && !k2Checked && !k3Checked) || (!k1Checked && k2Checked && !k3Checked) || (!k1Checked && !k2Checked && k3Checked) ||
                         (k1Checked && k2Checked && !k3Checked) || (k1Checked && !k2Checked && k3Checked) || (k1Checked && k2Checked && k3Checked))
                     {
-                        int[,]checkedResult=ExecuteCode(k1Checked, k2Checked, k3Checked);
+                        int[,] checkedResult = ExecuteCode(k1Checked, k2Checked, k3Checked);
 
                         stringBuilder.Append($"_Kontactors {checkedResult[0, 0]}{checkedResult[1, 0]}{checkedResult[2, 0]}3");
                         string command = stringBuilder.ToString();
-                        bool comandResult = await DeviceCommander(selectedImei, command);
+                        bool comandResult = await DeviceCommander(imeiList, command);
                     }
                 }
-
             }
             else
             {
@@ -238,13 +242,15 @@ namespace DeviceCommander
             }
         }
 
-        private async Task<bool> DeviceCommander(string identificationImei,string command)
+        private async Task<bool> DeviceCommander(List<string> identificationImei,string command)
         {
-            var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(item => item.Item2 == identificationImei).Item1;
-            if (selectedItem != default)
+            foreach(var item in identificationImei)
             {
-                selectedItem.Send(Encoding.UTF8.GetBytes(command));
-                return true;
+                var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item2 == item).Item1;
+                if (selectedItem != default)
+                {
+                    selectedItem.Send(Encoding.UTF8.GetBytes(command));
+                }
             }
             return false;
         }
