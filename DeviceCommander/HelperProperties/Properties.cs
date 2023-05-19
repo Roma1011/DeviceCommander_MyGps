@@ -17,7 +17,6 @@ namespace DeviceCommander.HelperProperties
             get { return incomingSockets; }
             set { incomingSockets = value; }
         }
-
         public static List<(Socket, string)> IncomingData { get; set; }=new List<(Socket, string)> { };
 
         public static CancellationToken token { get; set; }

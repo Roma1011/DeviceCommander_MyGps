@@ -1,15 +1,8 @@
 using DeviceCommander.Helper_Methods.Socket;
 using DeviceCommander.Services.ButtonServices;
-using DeviceCommander.Services.DataGridServices;
 using DeviceCommander.Services.MouseService;
 using ListeningIMEI;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using Timer = System.Threading.Timer;
 
 namespace DeviceCommander
@@ -19,8 +12,6 @@ namespace DeviceCommander
         private bool mouseDown;
         private Point lastMousePosition;
         //=====================================================================
-        ConfirmConnection confirm = new ConfirmConnection();
-        ReceiveIncomingSocket recive =new ReceiveIncomingSocket();
         private System.Windows.Forms.Timer timer;
         //=====================================================================
         static CancellationTokenSource cts = new CancellationTokenSource();
@@ -108,7 +99,6 @@ namespace DeviceCommander
             StopButton.Enabled = false;
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
 
-            //// Create a new cancellation token source to use for the next time the StartButton is clicked
             cts = new CancellationTokenSource();
         }
 
