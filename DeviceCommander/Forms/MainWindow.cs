@@ -13,6 +13,7 @@ namespace DeviceCommander
     public partial class MainWindow : Form
     {
         Writer writer;
+        Reader reader;
         private bool mouseDown;
         private Point lastMousePosition;
         //=====================================================================
@@ -27,10 +28,11 @@ namespace DeviceCommander
             HistoryPanel.Width= 0;
             StopButton.Enabled=false;
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 5000; // set interval to 5 seconds
+            timer.Interval = 5000;
             timer.Tick += Timer_Tick2;
             HelperProperties.Properties.token = cts.Token;
             writer= new Writer();
+            reader=new Reader();
         }
         void AddForm(Form frm, Button btn)
         {
@@ -166,6 +168,7 @@ namespace DeviceCommander
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
+            await reader.ReaderInFile(DeviceCommandGrid);
             await ConnectionCheck.IsConnected(DataGrid);
         }
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -276,10 +279,10 @@ namespace DeviceCommander
                     if (selectedItem != default)
                     {
                         selectedItem.Send(Encoding.UTF8.GetBytes(command));
-                        HelperProperties.Properties.dataList.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "OK" });
+                        HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "OK" });
                     }
                     else
-                        HelperProperties.Properties.dataList.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
+                        HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
                 }
             }
             catch (Exception ex)

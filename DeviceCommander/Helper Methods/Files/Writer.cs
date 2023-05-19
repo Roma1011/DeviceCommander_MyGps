@@ -13,9 +13,9 @@ namespace DeviceCommander.Helper_Methods.Files
 
         public async Task InFile()
         {
-            using (StreamWriter writer = new StreamWriter(filePath, true)) // Pass 'true' for append parameter
+            using (StreamWriter writer = new StreamWriter(filePath, true))
             {
-                foreach (DeviceCommandModel data in HelperProperties.Properties.dataList)
+                foreach (DeviceCommandModel data in HelperProperties.Properties.Writer)
                 {
                     await writer.WriteLineAsync($"{data.Imei}\t{data.Command}\t{data.Status}");
                 }
