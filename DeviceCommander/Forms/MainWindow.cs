@@ -155,14 +155,14 @@ namespace DeviceCommander
         }
         private void TimerForHistory_Tick(object sender, EventArgs e)
         {
-            if(HistoryPanel.Width >= 320)
+            if(HistoryPanel.Width >= 420)
                 for (int i = 0; i < 10; i++)
-                HistoryPanel.Width = HistoryPanel.Width - 32;
+                HistoryPanel.Width = HistoryPanel.Width - 42;
 
 
             else
                 for (int i = 0; i < 10; i++)
-                    HistoryPanel.Width = HistoryPanel.Width + 32;
+                    HistoryPanel.Width = HistoryPanel.Width + 42;
 
             TimerForHistory.Stop();
         }
@@ -284,6 +284,7 @@ namespace DeviceCommander
                     else
                         HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
                 }
+                MessageBox.Show("All Message is Sented");
             }
             catch (Exception ex)
             {

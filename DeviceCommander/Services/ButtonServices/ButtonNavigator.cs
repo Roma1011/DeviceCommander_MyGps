@@ -13,13 +13,13 @@ namespace DeviceCommander.Services.ButtonServices
             switch (btn.Name)
             {
                 case "StartButton":
-                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height - 16);
+                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height+14);
                     break;
                 case "StopButton":
-                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height - 16);
+                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height +14);
                     break;
                 case "DeviceCommanderButton":
-                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height * 2 + 10);
+                    navPanel.Location = new Point(navPanel.Location.X, btn.Location.Y + navPanel.Height * 2 + 20);
                     break;
                 default:
                     break;

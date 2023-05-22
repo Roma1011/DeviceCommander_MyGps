@@ -52,8 +52,8 @@
             this.MobileNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HistoryPanel = new System.Windows.Forms.Panel();
             this.DeviceCommandGrid = new System.Windows.Forms.DataGridView();
-            this.Command = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Device = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Command = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -317,8 +317,8 @@
             // PnlNav
             // 
             this.PnlNav.BackColor = System.Drawing.Color.White;
-            this.PnlNav.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PnlNav.Location = new System.Drawing.Point(13, 57);
+            this.PnlNav.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PnlNav.Location = new System.Drawing.Point(13, 89);
             this.PnlNav.Name = "PnlNav";
             this.PnlNav.Size = new System.Drawing.Size(4, 70);
             this.PnlNav.TabIndex = 3;
@@ -359,7 +359,7 @@
             this.DataGrid.Name = "DataGrid";
             this.DataGrid.ReadOnly = true;
             this.DataGrid.RowTemplate.Height = 25;
-            this.DataGrid.Size = new System.Drawing.Size(777, 597);
+            this.DataGrid.Size = new System.Drawing.Size(677, 597);
             this.DataGrid.TabIndex = 2;
             // 
             // Imei
@@ -380,9 +380,9 @@
             // 
             this.HistoryPanel.Controls.Add(this.DeviceCommandGrid);
             this.HistoryPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.HistoryPanel.Location = new System.Drawing.Point(975, 0);
+            this.HistoryPanel.Location = new System.Drawing.Point(875, 0);
             this.HistoryPanel.Name = "HistoryPanel";
-            this.HistoryPanel.Size = new System.Drawing.Size(320, 597);
+            this.HistoryPanel.Size = new System.Drawing.Size(420, 597);
             this.HistoryPanel.TabIndex = 1;
             // 
             // DeviceCommandGrid
@@ -391,23 +391,16 @@
             this.DeviceCommandGrid.AllowUserToDeleteRows = false;
             this.DeviceCommandGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DeviceCommandGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Command,
             this.Device,
+            this.Command,
             this.Status});
             this.DeviceCommandGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DeviceCommandGrid.Location = new System.Drawing.Point(0, 0);
             this.DeviceCommandGrid.Name = "DeviceCommandGrid";
             this.DeviceCommandGrid.ReadOnly = true;
             this.DeviceCommandGrid.RowTemplate.Height = 25;
-            this.DeviceCommandGrid.Size = new System.Drawing.Size(320, 597);
+            this.DeviceCommandGrid.Size = new System.Drawing.Size(420, 597);
             this.DeviceCommandGrid.TabIndex = 0;
-            // 
-            // Command
-            // 
-            this.Command.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Command.HeaderText = "Command";
-            this.Command.Name = "Command";
-            this.Command.ReadOnly = true;
             // 
             // Device
             // 
@@ -415,6 +408,13 @@
             this.Device.HeaderText = "Device";
             this.Device.Name = "Device";
             this.Device.ReadOnly = true;
+            // 
+            // Command
+            // 
+            this.Command.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Command.HeaderText = "Command";
+            this.Command.Name = "Command";
+            this.Command.ReadOnly = true;
             // 
             // Status
             // 
@@ -867,8 +867,8 @@
         private Button HistoryButton;
         private System.Windows.Forms.Timer TimerForHistory;
         private DataGridView DeviceCommandGrid;
-        private DataGridViewTextBoxColumn Command;
         private DataGridViewTextBoxColumn Device;
+        private DataGridViewTextBoxColumn Command;
         private DataGridViewTextBoxColumn Status;
     }
 }
