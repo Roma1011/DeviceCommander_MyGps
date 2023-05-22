@@ -89,6 +89,7 @@
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.TimerForHistory = new System.Windows.Forms.Timer(this.components);
             this.TimerForLoadHistory = new System.Windows.Forms.Timer(this.components);
+            this.TimerCheckConnect = new System.Windows.Forms.Timer(this.components);
             this.TLPnl.SuspendLayout();
             this.PNLSearch.SuspendLayout();
             this.TLPnlMenu.SuspendLayout();
@@ -773,6 +774,11 @@
             this.TimerForLoadHistory.Interval = 5000;
             this.TimerForLoadHistory.Tick += new System.EventHandler(this.TimerForLoadHistory_Tick);
             // 
+            // TimerCheckConnect
+            // 
+            this.TimerCheckConnect.Interval = 5000;
+            this.TimerCheckConnect.Tick += new System.EventHandler(this.TimerCheckConnect_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -877,5 +883,6 @@
         private DataGridViewTextBoxColumn Command;
         private DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.Timer TimerForLoadHistory;
+        private System.Windows.Forms.Timer TimerCheckConnect;
     }
 }

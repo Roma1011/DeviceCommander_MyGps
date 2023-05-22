@@ -12,32 +12,33 @@ public class PreparationSocket
     private static DataGridView dgr;
     public static void CreateListenerSocket(DataGridView dg)
     {
-        if (HelperProperties.Properties.token.IsCancellationRequested)
+        if (!HelperProperties.Properties.token.IsCancellationRequested)
         {
-            return;
+            dgr = dg;
+            HelperProperties.Properties._listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            HelperProperties.Properties._listenerSocket.Bind(new IPEndPoint(IPAddress.Any, 13000));
+            HelperProperties.Properties._listenerSocket.Listen(5);
+            //MessageBox.Show("Complite step 1");
+        
+            HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
         }
-        dgr = dg;
-        HelperProperties.Properties._listenerSocket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        HelperProperties.Properties._listenerSocket.Bind(new IPEndPoint(IPAddress.Any, 13000));
-        HelperProperties.Properties._listenerSocket.Listen(5);
-        //MessageBox.Show("Complite step 1");
-        HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
+        return;
     }
 
     private static void AcceptCallBack(IAsyncResult AR)
     {
-        if (HelperProperties.Properties.token.IsCancellationRequested)
+        if (!HelperProperties.Properties.token.IsCancellationRequested)
         {
-            return;
-        }
-        System.Net.Sockets.Socket socket = HelperProperties.Properties._listenerSocket.EndAccept(AR);
-        HelperProperties.Properties.IncomingSockets.Add(socket);
-        //MessageBox.Show("Complite step 2");
-        socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
-        //MessageBox.Show("Complite step 8");
 
-        HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
-    }
+            System.Net.Sockets.Socket socket = HelperProperties.Properties._listenerSocket.EndAccept(AR);
+            HelperProperties.Properties.IncomingSockets.Add(socket);
+            //MessageBox.Show("Complite step 2");
+            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
+            //MessageBox.Show("Complite step 8");
+            HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
+        }
+        return;
+}
 
     private static void ReceiveCallBack(IAsyncResult AR)
     {
@@ -62,7 +63,6 @@ public class PreparationSocket
                 string text = Encoding.ASCII.GetString(dataBuf);
                 if (!string.IsNullOrEmpty(text))
                 {
-                    //MessageBox.Show("Complite step 5");
                     string[]? result = StartPingParser.Parse(text);
                     if (result is not null)
                     {
@@ -74,7 +74,6 @@ public class PreparationSocket
             }
             catch (SocketException e)
             {
-                MessageBox.Show(e.Message);
                 HelperProperties.Properties.IncomingSockets.Remove(socket);
                 socket.Close();
             }

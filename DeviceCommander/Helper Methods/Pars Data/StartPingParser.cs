@@ -15,6 +15,8 @@ namespace DeviceCommander.Helper_Methods.Pars_Data
 
             try
             {
+                if (StartMessage[0] == 'A')
+                    MessageBox.Show(StartMessage);
                 if (StartMessage[0] != 'S')
                     return default;
                 //MessageBox.Show("Complite step 6.1");
@@ -28,7 +30,7 @@ namespace DeviceCommander.Helper_Methods.Pars_Data
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message);
             }
             //MessageBox.Show(DeviceDataForDataGrid[0] +"Complite step 7");
 

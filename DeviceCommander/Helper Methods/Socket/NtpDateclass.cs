@@ -27,7 +27,6 @@ public class NtpDateclass
 			{
 				socket.Connect(ipEndPoint);
                 socket.ReceiveTimeout = 3000;
-
 				socket.Send(ntpData);
 				socket.Receive(ntpData);
 				socket.Close();

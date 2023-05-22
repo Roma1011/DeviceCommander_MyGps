@@ -17,8 +17,6 @@ namespace DeviceCommander
         private bool mouseDown;
         private Point lastMousePosition;
         //=====================================================================
-        private System.Windows.Forms.Timer timer;
-        //=====================================================================
         static CancellationTokenSource cts = new CancellationTokenSource();
         //=====================================================================
         public MainWindow()
@@ -27,9 +25,6 @@ namespace DeviceCommander
             CommandPanel.Width = 0;
             HistoryPanel.Width= 0;
             StopButton.Enabled=false;
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 5000;
-            timer.Tick += Timer_Tick2;
             TimerForLoadHistory.Start();
             HelperProperties.Properties.token = cts.Token;
             writer= new Writer();
@@ -92,7 +87,8 @@ namespace DeviceCommander
         private async void StartButton_Click(object sender, EventArgs e)
         {
             Task.Factory.StartNew(async () => PreparationSocket.CreateListenerSocket(DataGrid));
-            timer.Start();
+
+            TimerCheckConnect.Start();
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
             StopButton.Enabled = true;
             StartButton.Enabled = false;
@@ -100,15 +96,14 @@ namespace DeviceCommander
         private async void StopButton_Click(object sender, EventArgs e)
         {
             cts.Cancel();
-
-            timer.Stop();
-            ClearSocketData.CloseConnection();
-
+            TimerCheckConnect.Stop();
+            ClearSocketData.CloseConnection(ref DataGrid);
             StartButton.Enabled = true;
             StopButton.Enabled = false;
             ButtonNavigator.SelectBtn((Button)sender, PnlNav);
 
             cts = new CancellationTokenSource();
+            HelperProperties.Properties.token = new CancellationToken();
         }
 
         private async void DeviceCommander_Click(object sender, EventArgs e)
@@ -167,13 +162,13 @@ namespace DeviceCommander
 
             TimerForHistory.Stop();
         }
-        private async void Timer_Tick2(object sender, EventArgs e)
+        private async void TimerCheckConnect_Tick(object sender, EventArgs e)
         {
-          await ConnectionCheck.IsConnected(DataGrid);
+            await ConnectionCheck.IsConnected(DataGrid);
         }
         private async void TimerForLoadHistory_Tick(object sender, EventArgs e)
         {
-           // await reader.ReaderInFile(DeviceCommandGrid);
+          //  await reader.ReaderInFile(DeviceCommandGrid);
         }
 
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
