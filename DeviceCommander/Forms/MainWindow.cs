@@ -30,6 +30,7 @@ namespace DeviceCommander
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 5000;
             timer.Tick += Timer_Tick2;
+            TimerForLoadHistory.Start();
             HelperProperties.Properties.token = cts.Token;
             writer= new Writer();
             reader=new Reader();
@@ -168,9 +169,13 @@ namespace DeviceCommander
         }
         private async void Timer_Tick2(object sender, EventArgs e)
         {
-            await reader.ReaderInFile(DeviceCommandGrid);
-            await ConnectionCheck.IsConnected(DataGrid);
+          await ConnectionCheck.IsConnected(DataGrid);
         }
+        private async void TimerForLoadHistory_Tick(object sender, EventArgs e)
+        {
+           // await reader.ReaderInFile(DeviceCommandGrid);
+        }
+
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
   
@@ -291,7 +296,7 @@ namespace DeviceCommander
                 MessageBox.Show(ex.Message);
                 return false;
             }
-            Task.Factory.StartNew(() => writer.InFile());
+           // Task.Factory.StartNew(() => writer.InFile());
             return true;
         }
         int[,] ExecuteCode(bool k1, bool k2, bool k3)
@@ -316,7 +321,7 @@ namespace DeviceCommander
                 whichK_IsChecked[2, 0] = k3 ? 2 : 3;
             }
             return whichK_IsChecked;
-        }        
+        }
     }
 
 }

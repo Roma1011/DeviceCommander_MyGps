@@ -73,14 +73,20 @@ namespace DeviceCommander.Helper_Methods.Socket
         }
         public static async Task<bool> SocketConnected(System.Net.Sockets.Socket s)
         {
-            bool part1 = s.Poll(1000, SelectMode.SelectRead);
-            bool part2 = (s.Available == 0);
-            if (part1 && part2)
+            try
+            {
+                bool part1 = s.Poll(1000, SelectMode.SelectRead);
+                bool part2 = (s.Available == 0);
+                if (part1 && part2)
+                    return false;
+                else
+                    return true;
+            }
+            catch(Exception ex)
+            {
+                s.Dispose();
                 return false;
-            else
-                return true;
+            }
         }
     }
-
-   
 }

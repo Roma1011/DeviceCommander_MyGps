@@ -88,6 +88,7 @@
             this.ElipsePnl = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.TimerForHistory = new System.Windows.Forms.Timer(this.components);
+            this.TimerForLoadHistory = new System.Windows.Forms.Timer(this.components);
             this.TLPnl.SuspendLayout();
             this.PNLSearch.SuspendLayout();
             this.TLPnlMenu.SuspendLayout();
@@ -767,6 +768,11 @@
             this.TimerForHistory.Interval = 500;
             this.TimerForHistory.Tick += new System.EventHandler(this.TimerForHistory_Tick);
             // 
+            // TimerForLoadHistory
+            // 
+            this.TimerForLoadHistory.Interval = 5000;
+            this.TimerForLoadHistory.Tick += new System.EventHandler(this.TimerForLoadHistory_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -870,5 +876,6 @@
         private DataGridViewTextBoxColumn Device;
         private DataGridViewTextBoxColumn Command;
         private DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.Timer TimerForLoadHistory;
     }
 }

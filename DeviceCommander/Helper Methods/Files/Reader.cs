@@ -10,7 +10,7 @@ namespace DeviceCommander.Helper_Methods.Files
 {
     public class Reader
     {
-        string filePath = "C:\\Dot.net\\DeviceCommander\\DeviceCommander\\Data\\Files\\Data.txt";
+        string filePath = "C:\\Users\\Administrator\\Desktop\\net7.0-windows\\Data.txt";
         public async Task ReaderInFile(DataGridView DataGridView)
         {
             using (StreamReader reader = new StreamReader(filePath))
