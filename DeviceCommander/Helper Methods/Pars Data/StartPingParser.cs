@@ -15,10 +15,15 @@ namespace DeviceCommander.Helper_Methods.Pars_Data
 
             try
             {
+                    MessageBox.Show("Start Parse");
                 if (StartMessage[0] == 'A')
+                {
                     MessageBox.Show(StartMessage);
-                if (StartMessage[0] != 'S')
-                    return default;
+                }
+                if(StartMessage[0]=='P')
+                    MessageBox.Show(StartMessage);
+                //if (StartMessage[0] != 'S')
+                //    return default;
                 //MessageBox.Show("Complite step 6.1");
                 string[] parts = StartMessage.Split(';');
                 //MessageBox.Show("Complite step 6.2");
@@ -30,7 +35,7 @@ namespace DeviceCommander.Helper_Methods.Pars_Data
             }
             catch (Exception e)
             {
-                //MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message);
             }
             //MessageBox.Show(DeviceDataForDataGrid[0] +"Complite step 7");
 

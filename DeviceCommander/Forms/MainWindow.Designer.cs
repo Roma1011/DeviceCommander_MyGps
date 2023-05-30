@@ -208,6 +208,7 @@
             this.SearchBar.TabIndex = 0;
             this.SearchBar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.SearchBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SearchBar_MouseClick);
+            this.SearchBar.TextChanged += new System.EventHandler(this.SearchBar_TextChanged);
             this.SearchBar.Leave += new System.EventHandler(this.SearchBar_Leave);
             // 
             // AppLabelName

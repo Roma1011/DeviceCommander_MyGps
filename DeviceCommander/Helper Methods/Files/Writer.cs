@@ -9,7 +9,7 @@ namespace DeviceCommander.Helper_Methods.Files
 {
     public class Writer
     {
-        string filePath = "C:\\Users\\Administrator\\Desktop\\net7.0-windows\\Data.txt";
+        string filePath = "G:\\Users\\Administrator\\Desktop\\DeviceCommander\\Data.txt";
 
         public async Task InFile()
         {

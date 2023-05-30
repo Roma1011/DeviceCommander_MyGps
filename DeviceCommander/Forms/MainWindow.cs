@@ -3,9 +3,11 @@ using DeviceCommander.Data.Models;
 using DeviceCommander.Helper_Methods.Files;
 using DeviceCommander.Helper_Methods.Socket;
 using DeviceCommander.Services.ButtonServices;
+using DeviceCommander.Services.DataGridServices;
 using DeviceCommander.Services.MouseService;
 using ListeningIMEI;
 using System.Text;
+using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
 namespace DeviceCommander
@@ -27,7 +29,7 @@ namespace DeviceCommander
             StopButton.Enabled=false;
             TimerForLoadHistory.Start();
             HelperProperties.Properties.token = cts.Token;
-            writer= new Writer();
+            writer=new Writer();
             reader=new Reader();
         }
         void AddForm(Form frm, Button btn)
@@ -117,7 +119,17 @@ namespace DeviceCommander
         }
         private async void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            foreach (var item in HelperProperties.Properties.IncomingData)
+            {
+                item.Item1.Dispose();
+            }
+            foreach (var item in HelperProperties.Properties.IncomingSockets)
+            {
+                item.Dispose();
+            }
+
+            HelperProperties.Properties._listenerSocket.Dispose();
+            Close();
         }
 
         private async void MinimizeButton_Click(object sender, EventArgs e)
@@ -125,9 +137,15 @@ namespace DeviceCommander
             WindowState = FormWindowState.Minimized;
         }
 
+        private async void SearchBar_TextChanged(object sender, EventArgs e)
+        {
+            if(SearchBar.Text.Length>3)
+                await SearchInDataGrid.Search(DataGrid, SearchBar);
+        }
+
         private async void SearchButton_Click(object sender, EventArgs e)
         {
-
+           await ShowData.Show(DataGrid);
         }
 
         private async void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -168,7 +186,7 @@ namespace DeviceCommander
         }
         private async void TimerForLoadHistory_Tick(object sender, EventArgs e)
         {
-          //  await reader.ReaderInFile(DeviceCommandGrid);
+           // await reader.ReaderInFile(DeviceCommandGrid);
         }
 
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -259,6 +277,7 @@ namespace DeviceCommander
 
                         stringBuilder.Append($"_Kontactors {checkedResult[0, 0]}{checkedResult[1, 0]}{checkedResult[2, 0]}3");
                         string command = stringBuilder.ToString();
+                        MessageBox.Show(command);
                         bool comandResult = await DeviceCommander(imeiList, command);
                     }
                 }
@@ -275,23 +294,34 @@ namespace DeviceCommander
             {
                 foreach (var item in identificationImei)
                 {
+                    MessageBox.Show("Checking Data Excisted or not");
                     var selectedItem = HelperProperties.Properties.IncomingData.FirstOrDefault(x => x.Item2 == item).Item1;
+
                     if (selectedItem != default)
                     {
-                        selectedItem.Send(Encoding.UTF8.GetBytes(command));
-                        HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "OK" });
+                        MessageBox.Show("Deta excisted");
+                        try
+                        {
+                            await selectedItem.SendAsync(Encoding.UTF8.GetBytes(command));
+                        }
+                        catch ( Exception ex)
+                        {
+                            MessageBox.Show("Sending Problem");
+                            throw ex;
+                        }
+                        //HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "OK" });
                     }
-                    else
-                        HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
+                    MessageBox.Show("All Message is Sented");
+                    //else
+                    //HelperProperties.Properties.Writer.Add(new DeviceCommandModel { Imei = item, Command = command, Status = "Error" });
                 }
-                MessageBox.Show("All Message is Sented");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Exception");
                 return false;
             }
-           // Task.Factory.StartNew(() => writer.InFile());
+            //Task.Factory.StartNew(() => writer.InFile());
             return true;
         }
         int[,] ExecuteCode(bool k1, bool k2, bool k3)
@@ -317,6 +347,7 @@ namespace DeviceCommander
             }
             return whichK_IsChecked;
         }
+
     }
 
 }
