@@ -9,15 +9,24 @@ namespace DeviceCommander.Helper_Methods.Files
 {
     public class Writer
     {
-        string filePath = "G:\\Users\\Administrator\\Desktop\\DeviceCommander\\Data.txt";
+        string filePath = "Data.txt";
+        string filePath2 = "Data.txt";
 
-        public async Task InFile()
+        public async Task InFile(List<DeviceCommandModel> commands)
         {
-            using (StreamWriter writer = new StreamWriter(filePath, true))
+            DateTime myDateTime = DateTime.Now;
+            if (!File.Exists(filePath2))
             {
-                foreach (DeviceCommandModel data in HelperProperties.Properties.Writer)
+                string directoryPath = Path.GetDirectoryName(filePath2);
+                Directory.CreateDirectory(directoryPath);
+                File.Create(filePath2).Close();
+            }
+
+            using (StreamWriter writer = new StreamWriter(filePath2, true))
+            {
+                foreach (DeviceCommandModel data in commands)
                 {
-                    await writer.WriteLineAsync($"{data.Imei}\t{data.Command}\t{data.Status}");
+                    await writer.WriteLineAsync($"{data.Imei}\t{data.Command}\t{data.Status}\t{myDateTime.ToString()}");
                 }
             }
         }

@@ -55,22 +55,32 @@
             this.Device = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Command = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CommandPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SendButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.PanelManagment = new System.Windows.Forms.Panel();
+            this.OnOfPannel = new System.Windows.Forms.Panel();
+            this.K3ShiftOf = new System.Windows.Forms.TextBox();
+            this.K3ShiftOn = new System.Windows.Forms.TextBox();
+            this.K3Label = new System.Windows.Forms.Label();
+            this.K2ShiftOf = new System.Windows.Forms.TextBox();
+            this.K2ShiftOn = new System.Windows.Forms.TextBox();
+            this.K2Label = new System.Windows.Forms.Label();
+            this.K1Label = new System.Windows.Forms.Label();
+            this.K1ShiftOf = new System.Windows.Forms.TextBox();
+            this.K1ShiftOn = new System.Windows.Forms.TextBox();
+            this.ManagmantPanel = new System.Windows.Forms.Panel();
             this.ResetShedule = new System.Windows.Forms.RadioButton();
             this.TurnOnRadio = new System.Windows.Forms.RadioButton();
             this.TurnOffRadio = new System.Windows.Forms.RadioButton();
-            this.Panel = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.OnOffShiftRadioButton = new System.Windows.Forms.RadioButton();
+            this.GraficRadioButton = new System.Windows.Forms.RadioButton();
+            this.DeviceManagmentRadio = new System.Windows.Forms.RadioButton();
             this.K_SPanel = new System.Windows.Forms.Panel();
             this.K3Checkbox = new System.Windows.Forms.CheckBox();
             this.K2CheckBox = new System.Windows.Forms.CheckBox();
             this.K1Checkbox = new System.Windows.Forms.CheckBox();
-            this.DeviceManagmentRadio = new System.Windows.Forms.RadioButton();
             this.Panel_IP_PORT = new System.Windows.Forms.Panel();
             this.Spare_Port = new System.Windows.Forms.TextBox();
             this.Primary_Port = new System.Windows.Forms.TextBox();
@@ -101,8 +111,8 @@
             this.CommandPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.PanelManagment.SuspendLayout();
-            this.Panel.SuspendLayout();
+            this.OnOfPannel.SuspendLayout();
+            this.ManagmantPanel.SuspendLayout();
             this.K_SPanel.SuspendLayout();
             this.Panel_IP_PORT.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -396,7 +406,8 @@
             this.DeviceCommandGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Device,
             this.Command,
-            this.Status});
+            this.Status,
+            this.Time});
             this.DeviceCommandGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DeviceCommandGrid.Location = new System.Drawing.Point(0, 0);
             this.DeviceCommandGrid.Name = "DeviceCommandGrid";
@@ -425,6 +436,12 @@
             this.Status.HeaderText = "Status";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
             // 
             // CommandPanel
             // 
@@ -469,10 +486,12 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.PanelManagment);
-            this.panel1.Controls.Add(this.Panel);
-            this.panel1.Controls.Add(this.K_SPanel);
+            this.panel1.Controls.Add(this.OnOfPannel);
+            this.panel1.Controls.Add(this.ManagmantPanel);
+            this.panel1.Controls.Add(this.OnOffShiftRadioButton);
+            this.panel1.Controls.Add(this.GraficRadioButton);
             this.panel1.Controls.Add(this.DeviceManagmentRadio);
+            this.panel1.Controls.Add(this.K_SPanel);
             this.panel1.Controls.Add(this.Panel_IP_PORT);
             this.panel1.Controls.Add(this.IntervalTextBox);
             this.panel1.Controls.Add(this.IP_PortRadio);
@@ -480,19 +499,111 @@
             this.panel1.Controls.Add(this.RestartRadio);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(193, 322);
+            this.panel1.Size = new System.Drawing.Size(193, 430);
             this.panel1.TabIndex = 4;
             // 
-            // PanelManagment
+            // OnOfPannel
             // 
-            this.PanelManagment.Controls.Add(this.ResetShedule);
-            this.PanelManagment.Controls.Add(this.TurnOnRadio);
-            this.PanelManagment.Controls.Add(this.TurnOffRadio);
-            this.PanelManagment.Location = new System.Drawing.Point(4, 145);
-            this.PanelManagment.Name = "PanelManagment";
-            this.PanelManagment.Size = new System.Drawing.Size(186, 132);
-            this.PanelManagment.TabIndex = 6;
-            this.PanelManagment.Visible = false;
+            this.OnOfPannel.Controls.Add(this.K3ShiftOf);
+            this.OnOfPannel.Controls.Add(this.K3ShiftOn);
+            this.OnOfPannel.Controls.Add(this.K3Label);
+            this.OnOfPannel.Controls.Add(this.K2ShiftOf);
+            this.OnOfPannel.Controls.Add(this.K2ShiftOn);
+            this.OnOfPannel.Controls.Add(this.K2Label);
+            this.OnOfPannel.Controls.Add(this.K1Label);
+            this.OnOfPannel.Controls.Add(this.K1ShiftOf);
+            this.OnOfPannel.Controls.Add(this.K1ShiftOn);
+            this.OnOfPannel.Location = new System.Drawing.Point(4, 160);
+            this.OnOfPannel.Name = "OnOfPannel";
+            this.OnOfPannel.Size = new System.Drawing.Size(184, 270);
+            this.OnOfPannel.TabIndex = 3;
+            this.OnOfPannel.Visible = false;
+            // 
+            // K3ShiftOf
+            // 
+            this.K3ShiftOf.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K3ShiftOf.Location = new System.Drawing.Point(16, 212);
+            this.K3ShiftOf.Name = "K3ShiftOf";
+            this.K3ShiftOf.Size = new System.Drawing.Size(154, 23);
+            this.K3ShiftOf.TabIndex = 12;
+            // 
+            // K3ShiftOn
+            // 
+            this.K3ShiftOn.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K3ShiftOn.Location = new System.Drawing.Point(16, 186);
+            this.K3ShiftOn.Name = "K3ShiftOn";
+            this.K3ShiftOn.Size = new System.Drawing.Size(154, 23);
+            this.K3ShiftOn.TabIndex = 11;
+            // 
+            // K3Label
+            // 
+            this.K3Label.AutoSize = true;
+            this.K3Label.Location = new System.Drawing.Point(75, 157);
+            this.K3Label.Name = "K3Label";
+            this.K3Label.Size = new System.Drawing.Size(30, 23);
+            this.K3Label.TabIndex = 10;
+            this.K3Label.Text = "K3";
+            // 
+            // K2ShiftOf
+            // 
+            this.K2ShiftOf.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K2ShiftOf.Location = new System.Drawing.Point(16, 128);
+            this.K2ShiftOf.Name = "K2ShiftOf";
+            this.K2ShiftOf.Size = new System.Drawing.Size(154, 23);
+            this.K2ShiftOf.TabIndex = 9;
+            // 
+            // K2ShiftOn
+            // 
+            this.K2ShiftOn.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K2ShiftOn.Location = new System.Drawing.Point(16, 102);
+            this.K2ShiftOn.Name = "K2ShiftOn";
+            this.K2ShiftOn.Size = new System.Drawing.Size(154, 23);
+            this.K2ShiftOn.TabIndex = 8;
+            // 
+            // K2Label
+            // 
+            this.K2Label.AutoSize = true;
+            this.K2Label.Location = new System.Drawing.Point(75, 77);
+            this.K2Label.Name = "K2Label";
+            this.K2Label.Size = new System.Drawing.Size(30, 23);
+            this.K2Label.TabIndex = 7;
+            this.K2Label.Text = "K2";
+            // 
+            // K1Label
+            // 
+            this.K1Label.AutoSize = true;
+            this.K1Label.Location = new System.Drawing.Point(78, 1);
+            this.K1Label.Name = "K1Label";
+            this.K1Label.Size = new System.Drawing.Size(30, 23);
+            this.K1Label.TabIndex = 6;
+            this.K1Label.Text = "K1";
+            // 
+            // K1ShiftOf
+            // 
+            this.K1ShiftOf.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K1ShiftOf.Location = new System.Drawing.Point(16, 51);
+            this.K1ShiftOf.Name = "K1ShiftOf";
+            this.K1ShiftOf.Size = new System.Drawing.Size(154, 23);
+            this.K1ShiftOf.TabIndex = 5;
+            // 
+            // K1ShiftOn
+            // 
+            this.K1ShiftOn.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.K1ShiftOn.Location = new System.Drawing.Point(16, 25);
+            this.K1ShiftOn.Name = "K1ShiftOn";
+            this.K1ShiftOn.Size = new System.Drawing.Size(154, 23);
+            this.K1ShiftOn.TabIndex = 4;
+            // 
+            // ManagmantPanel
+            // 
+            this.ManagmantPanel.Controls.Add(this.ResetShedule);
+            this.ManagmantPanel.Controls.Add(this.TurnOnRadio);
+            this.ManagmantPanel.Controls.Add(this.TurnOffRadio);
+            this.ManagmantPanel.Location = new System.Drawing.Point(3, 192);
+            this.ManagmantPanel.Name = "ManagmantPanel";
+            this.ManagmantPanel.Size = new System.Drawing.Size(186, 132);
+            this.ManagmantPanel.TabIndex = 8;
+            this.ManagmantPanel.Visible = false;
             // 
             // ResetShedule
             // 
@@ -527,43 +638,48 @@
             this.TurnOffRadio.Text = "Turn off";
             this.TurnOffRadio.UseVisualStyleBackColor = true;
             // 
-            // Panel
+            // OnOffShiftRadioButton
             // 
-            this.Panel.Controls.Add(this.radioButton2);
-            this.Panel.Controls.Add(this.radioButton1);
-            this.Panel.Location = new System.Drawing.Point(0, 328);
-            this.Panel.Name = "Panel";
-            this.Panel.Size = new System.Drawing.Size(186, 132);
-            this.Panel.TabIndex = 6;
+            this.OnOffShiftRadioButton.AutoSize = true;
+            this.OnOffShiftRadioButton.Location = new System.Drawing.Point(3, 116);
+            this.OnOffShiftRadioButton.Name = "OnOffShiftRadioButton";
+            this.OnOffShiftRadioButton.Size = new System.Drawing.Size(132, 27);
+            this.OnOffShiftRadioButton.TabIndex = 10;
+            this.OnOffShiftRadioButton.TabStop = true;
+            this.OnOffShiftRadioButton.Text = "On Off Shift";
+            this.OnOffShiftRadioButton.UseVisualStyleBackColor = true;
+            this.OnOffShiftRadioButton.CheckedChanged += new System.EventHandler(this.OnOffShiftRadioButton_CheckedChanged);
             // 
-            // radioButton2
+            // GraficRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(8, 52);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(97, 27);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "IP/PORT";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.GraficRadioButton.AutoSize = true;
+            this.GraficRadioButton.Location = new System.Drawing.Point(3, 68);
+            this.GraficRadioButton.Name = "GraficRadioButton";
+            this.GraficRadioButton.Size = new System.Drawing.Size(76, 27);
+            this.GraficRadioButton.TabIndex = 9;
+            this.GraficRadioButton.TabStop = true;
+            this.GraficRadioButton.Text = "Grafic";
+            this.GraficRadioButton.UseVisualStyleBackColor = true;
+            this.GraficRadioButton.CheckedChanged += new System.EventHandler(this.GraficRadioButton_CheckedChanged);
             // 
-            // radioButton1
+            // DeviceManagmentRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(8, 13);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(88, 27);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Restart";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.DeviceManagmentRadio.AutoSize = true;
+            this.DeviceManagmentRadio.Location = new System.Drawing.Point(3, 92);
+            this.DeviceManagmentRadio.Name = "DeviceManagmentRadio";
+            this.DeviceManagmentRadio.Size = new System.Drawing.Size(171, 27);
+            this.DeviceManagmentRadio.TabIndex = 5;
+            this.DeviceManagmentRadio.TabStop = true;
+            this.DeviceManagmentRadio.Text = "Device Managment";
+            this.DeviceManagmentRadio.UseVisualStyleBackColor = true;
+            this.DeviceManagmentRadio.CheckedChanged += new System.EventHandler(this.DeviceManagmentRadio_CheckedChanged);
             // 
             // K_SPanel
             // 
             this.K_SPanel.Controls.Add(this.K3Checkbox);
             this.K_SPanel.Controls.Add(this.K2CheckBox);
             this.K_SPanel.Controls.Add(this.K1Checkbox);
-            this.K_SPanel.Location = new System.Drawing.Point(7, 99);
+            this.K_SPanel.Location = new System.Drawing.Point(7, 142);
             this.K_SPanel.Name = "K_SPanel";
             this.K_SPanel.Size = new System.Drawing.Size(180, 40);
             this.K_SPanel.TabIndex = 8;
@@ -599,18 +715,6 @@
             this.K1Checkbox.Text = "K1";
             this.K1Checkbox.UseVisualStyleBackColor = true;
             // 
-            // DeviceManagmentRadio
-            // 
-            this.DeviceManagmentRadio.AutoSize = true;
-            this.DeviceManagmentRadio.Location = new System.Drawing.Point(4, 67);
-            this.DeviceManagmentRadio.Name = "DeviceManagmentRadio";
-            this.DeviceManagmentRadio.Size = new System.Drawing.Size(171, 27);
-            this.DeviceManagmentRadio.TabIndex = 5;
-            this.DeviceManagmentRadio.TabStop = true;
-            this.DeviceManagmentRadio.Text = "Device Managment";
-            this.DeviceManagmentRadio.UseVisualStyleBackColor = true;
-            this.DeviceManagmentRadio.CheckedChanged += new System.EventHandler(this.DeviceManagmentRadio_CheckedChanged);
-            // 
             // Panel_IP_PORT
             // 
             this.Panel_IP_PORT.Controls.Add(this.Spare_Port);
@@ -619,7 +723,7 @@
             this.Panel_IP_PORT.Controls.Add(this.label1);
             this.Panel_IP_PORT.Controls.Add(this.Spare);
             this.Panel_IP_PORT.Controls.Add(this.Primary);
-            this.Panel_IP_PORT.Location = new System.Drawing.Point(4, 145);
+            this.Panel_IP_PORT.Location = new System.Drawing.Point(4, 189);
             this.Panel_IP_PORT.Name = "Panel_IP_PORT";
             this.Panel_IP_PORT.Size = new System.Drawing.Size(186, 132);
             this.Panel_IP_PORT.TabIndex = 4;
@@ -810,10 +914,10 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.PanelManagment.ResumeLayout(false);
-            this.PanelManagment.PerformLayout();
-            this.Panel.ResumeLayout(false);
-            this.Panel.PerformLayout();
+            this.OnOfPannel.ResumeLayout(false);
+            this.OnOfPannel.PerformLayout();
+            this.ManagmantPanel.ResumeLayout(false);
+            this.ManagmantPanel.PerformLayout();
             this.K_SPanel.ResumeLayout(false);
             this.K_SPanel.PerformLayout();
             this.Panel_IP_PORT.ResumeLayout(false);
@@ -848,13 +952,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Button SendButton;
         private Panel panel1;
-        private Panel PanelManagment;
-        private RadioButton ResetShedule;
-        private RadioButton TurnOnRadio;
-        private RadioButton TurnOffRadio;
-        private Panel Panel;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
         private Panel K_SPanel;
         private CheckBox K3Checkbox;
         private CheckBox K2CheckBox;
@@ -885,5 +982,22 @@
         private DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.Timer TimerForLoadHistory;
         private System.Windows.Forms.Timer TimerCheckConnect;
+        private RadioButton GraficRadioButton;
+        private RadioButton OnOffShiftRadioButton;
+        private Panel ManagmantPanel;
+        private RadioButton ResetShedule;
+        private RadioButton TurnOnRadio;
+        private RadioButton TurnOffRadio;
+        private Panel OnOfPannel;
+        private TextBox K1ShiftOn;
+        private TextBox K1ShiftOf;
+        private TextBox K3ShiftOf;
+        private TextBox K3ShiftOn;
+        private Label K3Label;
+        private TextBox K2ShiftOf;
+        private TextBox K2ShiftOn;
+        private Label K2Label;
+        private Label K1Label;
+        private DataGridViewTextBoxColumn Time;
     }
 }

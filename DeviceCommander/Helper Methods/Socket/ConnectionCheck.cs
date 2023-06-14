@@ -14,14 +14,18 @@ namespace DeviceCommander.Helper_Methods.Socket
         public static async Task IsConnected(DataGridView dataGridView)
         {
             List<System.Net.Sockets.Socket> connectedSockets = new List<System.Net.Sockets.Socket>();
+
             List<(System.Net.Sockets.Socket, string)> incomingDataConnected = new List<(System.Net.Sockets.Socket, string)>();
+
             List<System.Net.Sockets.Socket> incomingSocketsCopy = new List<System.Net.Sockets.Socket>(HelperProperties.Properties.IncomingSockets);
+
             List<(System.Net.Sockets.Socket, string)> incomingDataCopy = new List<(System.Net.Sockets.Socket, string)>(HelperProperties.Properties.IncomingData);
+
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
             foreach (var item in incomingSocketsCopy)
             {
-                bool connected =await SocketConnected(item);
+                bool connected =await SocketConnected(item);//შემოწმება კავშირზე არის თუ არა მოწყობილობა
                 if (!connected)
                 {
                     connectedSockets.Add(item);
@@ -37,9 +41,10 @@ namespace DeviceCommander.Helper_Methods.Socket
                 {
                     incomingDataConnected.Add((item.Item1, item.Item2));
                 }
+
                 else
                 {
-                    rowsToRemove.Clear(); // Clear the list before using it again
+                    rowsToRemove.Clear();
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
                         bool match = true;
@@ -71,6 +76,9 @@ namespace DeviceCommander.Helper_Methods.Socket
             }
             HelperProperties.Properties.IncomingData = incomingDataConnected;
         }
+
+
+
         public static async Task<bool> SocketConnected(System.Net.Sockets.Socket s)
         {
             try
