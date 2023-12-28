@@ -36,10 +36,11 @@ public class PreparationSocket
         if (!HelperProperties.Properties.token.IsCancellationRequested)
         {
             try
-            {  System.Net.Sockets.Socket socket = HelperProperties.Properties._listenerSocket.EndAccept(AR);
-            HelperProperties.Properties.IncomingSockets.Add(socket);
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
-            HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
+            {  
+                System.Net.Sockets.Socket socket = HelperProperties.Properties._listenerSocket.EndAccept(AR);
+                HelperProperties.Properties.IncomingSockets.Add(socket);
+                socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socket);
+                HelperProperties.Properties._listenerSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
             }
             catch (Exception e)
             {
